@@ -1,7 +1,7 @@
 <?php
 $server = getenv("AZURE_SQL_SERVERNAME");
 $database = getenv("AZURE_SQL_DATABASE");
-$user = getenv("AZURE_SQL_UID");
+$username = getenv("AZURE_SQL_UID");
 $password = getenv("AZURE_SQL_PASSWORD");
 
 $connectionOptions = array(
