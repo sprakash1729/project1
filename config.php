@@ -21,7 +21,7 @@ try {
         echo "Connection to SQL Server established.<br/>";
 
         // Sample query to check connection
-        $sql = "SELECT * from dbo.users AS test_value";
+        $sql = "SELECT count(*) from dbo.users AS test_value";
         $stmt = sqlsrv_query($conn, $sql);
 
         if ($stmt === false) {
