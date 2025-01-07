@@ -14,7 +14,7 @@ $result = $conn->query($sql);
 $row = mysqli_fetch_array($result);
 $bon=round($row['bonus'],2);
    
-$opt="SELECT SUM(amount) as total FROM `bonus` WHERE usercode='".$_SESSION['usercode']."' AND level='1'";
+$opt="SELECT SUM(amount) as total FROM `dbo.bonus` WHERE usercode='".$_SESSION['usercode']."' AND level='1'";
 $optres=$conn->query($opt);
 $sum= mysqli_fetch_assoc($optres);
 if($sum['total']==""){
@@ -23,7 +23,7 @@ if($sum['total']==""){
 }else{
     $bonus=round($sum['total'],2);
 }
-$opt2="SELECT SUM(amount) as total FROM `bonus` WHERE usercode='".$_SESSION['usercode']."' AND level='2'";
+$opt2="SELECT SUM(amount) as total FROM `dbo.bonus` WHERE usercode='".$_SESSION['usercode']."' AND level='2'";
 $optres2=$conn->query($opt2);
 $sum2= mysqli_fetch_assoc($optres2);
 if($sum2['total']==""){
@@ -70,7 +70,7 @@ $rowcount=mysqli_num_rows($result1);
 $rowcount2=mysqli_num_rows($result3);
 
 //retrieve the selected results from database   
-$query = "SELECT * FROM `bonus` WHERE usercode='".$_SESSION['usercode']."' ORDER BY id DESC";  
+$query = "SELECT * FROM `dbo.bonus` WHERE usercode='".$_SESSION['usercode']."' ORDER BY id DESC";  
 $result = mysqli_query($conn, $query);  
   
 //display the retrieved result on the webpage 

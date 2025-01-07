@@ -22,7 +22,7 @@ $conn->query($addwin0);
 $sql3 = "INSERT INTO recharge(username,recharge,status) VALUES ('$user','$recharge','successfull')";
 $result3 =$conn->query($sql3);
 
-$opt="SELECT SUM(recharge) as total FROM `recharge` WHERE username='$user' AND status='successfull'";
+$opt="SELECT SUM(recharge) as total FROM `dbo.recharge` WHERE username='$user' AND status='successfull'";
 $optres=$conn->query($opt);
 $sum= mysqli_fetch_assoc($optres);
 if($sum['total']=="" or $sum['total']=="0"){

@@ -18,7 +18,7 @@ if($sum9['total9']==""){
 }else{
     $bonus9=$sum9['total9'];
 }
-$opt="SELECT SUM(withdraw) as total FROM `record` WHERE status='Completed' ";
+$opt="SELECT SUM(withdraw) as total FROM `dbo.record` WHERE status='Completed' ";
 $optres=$conn->query($opt);
 $sum= mysqli_fetch_assoc($optres);
 if($sum['total']==""){
@@ -28,7 +28,7 @@ if($sum['total']==""){
     $bonus=round($sum['total'],2);
 }
 
-$opt1="SELECT SUM(recharge) as total1 FROM `recharge` WHERE status='Completed'";
+$opt1="SELECT SUM(recharge) as total1 FROM `dbo.recharge` WHERE status='Completed'";
 $optres1=$conn->query($opt1);
 $sum1= mysqli_fetch_assoc($optres1);
 if($sum1['total1']==""){
@@ -61,7 +61,7 @@ if($sum9t['total9']==""){
 }else{
     $bonus9t=$sum9t['total9'];
 }
-$optt="SELECT SUM(withdraw) as total FROM `record` WHERE status='Completed' AND  DATE(`created_at`) = CURDATE() ";
+$optt="SELECT SUM(withdraw) as total FROM `dbo.record` WHERE status='Completed' AND  DATE(`created_at`) = CURDATE() ";
 $optrest=$conn->query($optt);
 $sumt= mysqli_fetch_assoc($optrest);
 if($sumt['total']==""){
@@ -71,7 +71,7 @@ if($sumt['total']==""){
     $bonust=round($sumt['total'],2);
 }
 
-$opt1t="SELECT SUM(recharge) as total1 FROM `recharge` WHERE status='Completed' AND  DATE(`created_at`) = CURDATE()";
+$opt1t="SELECT SUM(recharge) as total1 FROM `dbo.recharge` WHERE status='Completed' AND  DATE(`created_at`) = CURDATE()";
 $optres1t=$conn->query($opt1t);
 $sum1t= mysqli_fetch_assoc($optres1t);
 if($sum1t['total1']==""){
@@ -80,7 +80,7 @@ if($sum1t['total1']==""){
 }else{
     $tbalt=$sum1t['total1'];
 }
-$opt10t="SELECT SUM(withdraw) as total10 FROM `record` WHERE status='Processing' AND  DATE(`created_at`) = CURDATE()";
+$opt10t="SELECT SUM(withdraw) as total10 FROM `dbo.record` WHERE status='Processing' AND  DATE(`created_at`) = CURDATE()";
 $optres10t=$conn->query($opt10t);
 $sum10t= mysqli_fetch_assoc($optres10t);
 if($sum10t['total10']==""){

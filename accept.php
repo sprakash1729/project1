@@ -11,20 +11,20 @@ require_once "config.php";
   $username=$_GET['un'];
   $amount=$_GET['am'];
   $utr=$_GET['utr'];
-  $sqlr = "SELECT  bon FROM notice WHERE id='1'";
+  $sqlr = "SELECT  bon FROM dbo.notice WHERE id='1'";
 $resultr = $conn->query($sqlr);
 $rowr = mysqli_fetch_array($resultr);
 $mini=$rowr['bon'];
   
 
 
-$opt="SELECT SUM(recharge) as total FROM `recharge` WHERE username='$username' AND status='Completed'";
+$opt="SELECT SUM(recharge) as total FROM `dbo.recharge` WHERE username='$username' AND status='Completed'";
 $optres=$conn->query($opt);
 $sum= mysqli_fetch_assoc($optres);
 if($sum['total']=="" or $sum['total']=="0"){
     
 $bonus=$mini;
-$win="select refcode FROM users WHERE  username='$username' ";
+$win="select refcode FROM dbo.users WHERE  username='$username' ";
 $result3 =$conn->query($win);
 $row3 = mysqli_fetch_assoc($result3);
 $refcode=$row3['refcode'];

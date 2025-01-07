@@ -12,7 +12,7 @@ require_once "config.php";
 
 // mysql select query
 
-$query1 = "SELECT * FROM `bonus` WHERE usercode='".$_SESSION['usercode']."' ";
+$query1 = "SELECT * FROM `dbo.bonus` WHERE usercode='".$_SESSION['usercode']."' ";
 
 
 // result for method one
@@ -39,7 +39,7 @@ if (!isset ($_GET['page']) ) {
 $page_first_result = ($page-1) * $results_per_page;  
 
 //retrieve the selected results from database   
-$query = "SELECT * FROM `bonus` WHERE usercode='".$_SESSION['usercode']."' ORDER BY id DESC LIMIT " . $page_first_result . ',' . $results_per_page;  
+$query = "SELECT * FROM `dbo.bonus` WHERE usercode='".$_SESSION['usercode']."' ORDER BY id DESC LIMIT " . $page_first_result . ',' . $results_per_page;  
 $result = mysqli_query($conn, $query);  
   
 //display the retrieved result on the webpage  

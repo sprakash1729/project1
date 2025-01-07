@@ -22,7 +22,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 $amount = $_POST['amount'];
 $utr = $_POST['utr']; 
 $upi = $_POST['upi']; 
-$query1 = "SELECT * FROM `recharge` WHERE utr='$utr' ";
+$query1 = "SELECT * FROM `dbo.recharge` WHERE utr='$utr' ";
 $result1 = mysqli_query($conn, $query1);
 $utrcount = mysqli_num_rows($result1); 
 

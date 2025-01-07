@@ -159,7 +159,7 @@ $resultr = $conn->query($sqlr);
 $rowr = mysqli_fetch_array($resultr);
 $mini=$rowr['min_w'];
 $minir=$rowr['min_r'];
-                        $query1 = "SELECT * FROM `record` WHERE username='".$_SESSION['username']."' ";
+                        $query1 = "SELECT * FROM `dbo.record` WHERE username='".$_SESSION['username']."' ";
 
 
 $result1 = mysqli_query($conn, $query1);
@@ -167,13 +167,13 @@ $result1 = mysqli_query($conn, $query1);
 $dataRow = "";
 
 //retrieve the selected results from database   
-$query = "SELECT * FROM `record` WHERE username='".$_SESSION['username']."' ORDER BY id DESC ";  
+$query = "SELECT * FROM `dbo.record` WHERE username='".$_SESSION['username']."' ORDER BY id DESC ";  
 $result = mysqli_query($conn, $query);  
   
 //display the retrieved result on the webpage  
 
                  
-$opt="SELECT SUM(recharge) as total FROM `recharge` WHERE username='".$_SESSION['username']."'";
+$opt="SELECT SUM(recharge) as total FROM `dbo.recharge` WHERE username='".$_SESSION['username']."'";
 $optres=$conn->query($opt);
 $sum= mysqli_fetch_assoc($optres);
 if($sum['total']==""){
@@ -218,7 +218,7 @@ if($sum22['total22']==""){
 }else{
     $bonus4=round($sum22['total22'],2);
 }
-$opt5="SELECT SUM(amount) as total5 FROM `bonus` WHERE usercode='".$_SESSION['usercode']."'";
+$opt5="SELECT SUM(amount) as total5 FROM `dbo.bonus` WHERE usercode='".$_SESSION['usercode']."'";
 $optres5=$conn->query($opt5);
 $sum5= mysqli_fetch_assoc($optres5);
 if (isset($sum5['total5'])) {

@@ -42,7 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST"){
 
 $user_code = random_strings(25);  
     }
-$query11 = "SELECT code FROM `gift` WHERE code='$user_code'";
+$query11 = "SELECT code FROM `dbo.gift` WHERE code='$user_code'";
 
 
 $result1 = mysqli_query($conn, $query11);

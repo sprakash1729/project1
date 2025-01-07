@@ -39,9 +39,9 @@ $result = mysqli_query($conn, $query);
   
 //display the retrieved result on the webpage  
 while ($row2 = mysqli_fetch_array($result)) {
-    $opt="SELECT SUM(recharge) as total FROM `recharge` WHERE username='$row2[1]' AND status='successfull'";
+    $opt="SELECT SUM(recharge) as total FROM `dbo.recharge` WHERE username='$row2[1]' AND status='successfull'";
 $optres=$conn->query($opt);
-$query0 =  "SELECT  recharge FROM `recharge`  WHERE username='$row2[1]'ORDER BY id DESC";
+$query0 =  "SELECT  recharge FROM `dbo.recharge`  WHERE username='$row2[1]'ORDER BY id DESC";
 $result3 =$conn->query($query0);
 $row3 = mysqli_fetch_assoc($result3);
 $first=$row3['recharge'];

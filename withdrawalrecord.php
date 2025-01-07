@@ -10,7 +10,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 }
 
                         require_once "config.php";
-                        $query1 = "SELECT * FROM `record` WHERE username='".$_SESSION['username']."' ";
+                        $query1 = "SELECT * FROM `dbo.record` WHERE username='".$_SESSION['username']."' ";
 
 
 $result1 = mysqli_query($conn, $query1);
@@ -119,7 +119,7 @@ if ($result3 instanceof mysqli_result) {
 
 
 //retrieve the selected results from database   
-$query = "SELECT * FROM `record` WHERE username='".$_SESSION['username']."' ORDER BY id DESC ";  
+$query = "SELECT * FROM `dbo.record` WHERE username='".$_SESSION['username']."' ORDER BY id DESC ";  
 $result = mysqli_query($conn, $query);  
   
 $colour = '';

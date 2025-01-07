@@ -482,10 +482,10 @@ if($lastperiodid==$periodidRow['period'])
 {
   $truncateQuery=mysqli_query($conn,"TRUNCATE TABLE `sapreperiod`");
   $truncateResultQuery=mysqli_query($conn,"TRUNCATE TABLE `sapreperiod`");
-    $sql19=mysqli_query($conn,"INSERT INTO `sapreperiod` (`period`,`nxt`) VALUES ('".$firstperiodid."','11')");  
+    $sql19=mysqli_query($conn,"INSERT INTO `sapreperiod` (`dbo.period`,`nxt`) VALUES ('".$firstperiodid."','11')");  
 }elseif($periodRow=='' OR $periodRow=='0')
 {
-$sql19=mysqli_query($conn,"INSERT INTO `sapreperiod` (`period`,`nxt`) VALUES ('".$firstperiodid."','11')");
+$sql19=mysqli_query($conn,"INSERT INTO `sapreperiod` (`dbo.period`,`nxt`) VALUES ('".$firstperiodid."','11')");
 	
 
 }else 

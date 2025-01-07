@@ -475,10 +475,10 @@ if($lastperiodid==$periodidRow['period'])
 {
   $truncateQuery=mysqli_query($conn,"TRUNCATE TABLE `emredperiod`");
   $truncateResultQuery=mysqli_query($conn,"TRUNCATE TABLE `emredperiod`");
-    $sql19=mysqli_query($conn,"INSERT INTO `emredperiod` (`period`,`nxt`) VALUES ('".$firstperiodid."','11')");  
+    $sql19=mysqli_query($conn,"INSERT INTO `emredperiod` (`dbo.period`,`nxt`) VALUES ('".$firstperiodid."','11')");  
 }elseif($periodRow=='' OR $periodRow=='0')
 {
-$sql19=mysqli_query($conn,"INSERT INTO `emredperiod` (`period`,`nxt`) VALUES ('".$firstperiodid."','11')");
+$sql19=mysqli_query($conn,"INSERT INTO `emredperiod` (`dbo.period`,`nxt`) VALUES ('".$firstperiodid."','11')");
 	
 
 }else 

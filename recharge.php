@@ -39,7 +39,7 @@ if ($conn->query($sql) === TRUE) {
 else{
       header("location: main#"); 
 }
-$opt="SELECT SUM(amount) as total FROM `bonus` WHERE usercode='".$_SESSION['usercode']."'";
+$opt="SELECT SUM(amount) as total FROM `dbo.bonus` WHERE usercode='".$_SESSION['usercode']."'";
 $optres=$conn->query($opt);
 $sum= mysqli_fetch_assoc($optres);
 if($sum['total']==""){

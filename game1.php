@@ -484,10 +484,10 @@ if($lastperiodid==$periodidRow['period'])
 {
   $truncateQuery=mysqli_query($conn,"TRUNCATE TABLE `beconeperiod`");
   $truncateResultQuery=mysqli_query($conn,"TRUNCATE TABLE `beconeperiod`");
-    $sql19=mysqli_query($conn,"INSERT INTO `beconeperiod` (`period`,`nxt`) VALUES ('".$firstperiodid."','11')");  
+    $sql19=mysqli_query($conn,"INSERT INTO `beconeperiod` (`dbo.period`,`nxt`) VALUES ('".$firstperiodid."','11')");  
 }elseif($periodRow=='' OR $periodRow=='0')
 {
-$sql19=mysqli_query($conn,"INSERT INTO `beconeperiod` (`period`,`nxt`) VALUES ('".$firstperiodid."','11')");
+$sql19=mysqli_query($conn,"INSERT INTO `beconeperiod` (`dbo.period`,`nxt`) VALUES ('".$firstperiodid."','11')");
 	
 
 }else 

@@ -25,7 +25,7 @@ if (isset($_GET["code"])) {
 
 if($_SERVER["REQUEST_METHOD"] == "POST"){
     
-$sql8 = "SELECT amount,share FROM `gift` WHERE code='$code'";
+$sql8 = "SELECT amount,share FROM `dbo.gift` WHERE code='$code'";
 $result = $conn->query($sql8);
 $row8 = mysqli_fetch_array($result);
 $amount=$row8[amount];
