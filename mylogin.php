@@ -45,7 +45,7 @@ if(empty($err))
                             $_SESSION["refcode2"] = $row2['refcode2'];
                             $_SESSION["loggedin"] = true;
 
-                            header("location: /project1/main#");
+                            header("location: /main.php");
 }else{
             echo "<script>
      document.addEventListener('DOMContentLoaded', function(event) { 
