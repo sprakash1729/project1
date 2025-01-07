@@ -2,13 +2,13 @@
 $serverName = getenv("AZURE_SQL_SERVERNAME");
 $database = getenv("AZURE_SQL_DATABASE");
 $username = getenv("AZURE_SQL_UID");
-$password = getenv("AZURE_SQL_PASSWORD");
+$password = getenv("AZURE_SQL_PWD");
 
 // Corrected connectionOptions
 $connectionOptions = array(
     "Database" => $database, 
     "Uid" => $username,
-    "PWD" => $password 
+    "PWD" => $password
 );
 
 try {
@@ -21,7 +21,7 @@ try {
         echo "Connection to SQL Server established.<br/>";
 
         // Sample query to check connection
-        $sql = "SELECT 1 + 1 AS test_value";
+        $sql = "SELECT * from dbo.users AS test_value";
         $stmt = sqlsrv_query($conn, $sql);
 
         if ($stmt === false) {
