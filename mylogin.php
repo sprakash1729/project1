@@ -3,7 +3,7 @@
 // check if the user is already logged in
 if(isset($_SESSION['username']))
 {
-    header("location: main#");
+    header("location: main.php");
     exit;
 }
 require_once "config.php";
