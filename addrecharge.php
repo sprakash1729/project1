@@ -10,7 +10,7 @@ $amount = $_POST['amount'];
 $utr = $_POST['utr']; 
 $upi = $_POST['upi']; 
 
-$sql1 = "INSERT INTO recharge (username, recharge,status,upi,utr) VALUES ('".$_SESSION['username']."', '$amount','Unpaid','$upi','$utr')";
+$sql1 = "INSERT INTO dbo.recharge (username, recharge,status,upi,utr) VALUES ('".$_SESSION['username']."', '$amount','Unpaid','$upi','$utr')";
                 
 $conn->query($sql1);
 

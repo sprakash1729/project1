@@ -7,7 +7,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     exit;
 }
 require_once "config.php";
-$sql = "SELECT  upi FROM notice WHERE id='1'";
+$sql = "SELECT  upi FROM dbo.notice WHERE id='1'";
 $result = $conn->query($sql);
 $row = mysqli_fetch_array($result);
 $upi=$row['upi'];
@@ -46,7 +46,7 @@ function random_strings($length_of_string)
 if($utrcount==0){
     
  
-$sql1 = "INSERT INTO recharge (username, recharge,status,upi,utr,rand) VALUES ('".$_SESSION['username']."', '$amount','To Be Paid','$upi','$utr','$rand')";
+$sql1 = "INSERT INTO dbo.recharge (username, recharge,status,upi,utr,rand) VALUES ('".$_SESSION['username']."', '$amount','To Be Paid','$upi','$utr','$rand')";
                 
 $conn->query($sql1);
 

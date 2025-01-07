@@ -4,11 +4,11 @@ session_start();
  
 // Check if the user is logged in, if not then redirect him to login page
 if(!isset($_SESSION["adloggedin"]) || $_SESSION["adloggedin"] !== true){
-    header("location: adlogin");
+    header("location: adlogin.php");
     exit;
 }
 require_once "config.php";
-$opt9="SELECT COUNT(*) as total9 FROM `users` ";
+$opt9="SELECT COUNT(*) as total9 FROM `dbo.users` ";
 $optres9=$conn->query($opt9);
 $sum9= mysqli_fetch_assoc($optres9);
 
@@ -37,7 +37,7 @@ if($sum1['total1']==""){
 }else{
     $tbal=$sum1['total1'];
 }
-$opt10="SELECT SUM(withdraw) as total10 FROM `withdraw` WHERE status='Processing'";
+$opt10="SELECT SUM(withdraw) as total10 FROM `dbo.withdraw` WHERE status='Processing'";
 $optres10=$conn->query($opt10);
 $sum10= mysqli_fetch_assoc($optres10);
 if($sum10['total10']==""){
@@ -51,7 +51,7 @@ if($sum10['total10']==""){
 
 
 
-$opt9t="SELECT COUNT(*) as total9 FROM `users` WHERE  DATE(`time`) = CURDATE() ";
+$opt9t="SELECT COUNT(*) as total9 FROM `dbo.users` WHERE  DATE(`time`) = CURDATE() ";
 $optres9t=$conn->query($opt9t);
 $sum9t= mysqli_fetch_assoc($optres9t);
 

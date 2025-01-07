@@ -9,7 +9,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 }
 
 require_once "config.php";
-$sql = "SELECT  balance FROM users WHERE username='".$_SESSION['username']."'";
+$sql = "SELECT  balance FROM dbo.users WHERE username='".$_SESSION['username']."'";
 $result = $conn->query($sql);
 $row = mysqli_fetch_array($result);
 $balance=round($row['balance'],2);
@@ -31,7 +31,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 
 
 require_once "config.php";
-$sql = "SELECT  notice FROM notice WHERE id='1'";
+$sql = "SELECT  dbo.notice FROM notice WHERE id='1'";
 $result = $conn->query($sql);
 $row = mysqli_fetch_array($result);
 $notice=$row['notice'];

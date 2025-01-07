@@ -4,7 +4,7 @@ session_start();
  
 // Check if the user is logged in, if not then redirect him to login page
 if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
-    header("location: login");
+    header("location: login.php");
     exit;
 }
 require_once "config.php";
@@ -70,7 +70,7 @@ $first=$row3['account'];
                     // Code to execute if "edit" parameter is not present or not set to "true"
                 }
                 
-$sql = "SELECT  balance FROM users WHERE username='".$_SESSION['username']."'";
+$sql = "SELECT  balance FROM dbo.users WHERE username='".$_SESSION['username']."'";
 $result = $conn->query($sql);
 $row = mysqli_fetch_array($result);
 $balance=round($row['balance'],2);
@@ -115,12 +115,12 @@ if (empty($_POST["account"] )== false){
                       $email=$_POST['email'];
                     }
                 }
-                $query0 =  "SELECT  account FROM `users`  WHERE username!='".$_SESSION['username']."' AND account='$account'";
+                $query0 =  "SELECT  account FROM `dbo.users`  WHERE username!='".$_SESSION['username']."' AND account='$account'";
 $result3 =$conn->query($query0);
 $row3 = mysqli_fetch_assoc($result3);
 $first=$row3['account'];
                 if($first==''){
-                      $sql = "UPDATE users SET account ='$account', ifsc ='$ifsc',name='$name',upi='$upi',email='$email' WHERE username='".$_SESSION['username']."' ";
+                      $sql = "UPDATE dbo.users SET account ='$account', ifsc ='$ifsc',name='$name',upi='$upi',email='$email' WHERE username='".$_SESSION['username']."' ";
 
                   if ($conn->query($sql) === TRUE) {
                   header("location: withdraw#");

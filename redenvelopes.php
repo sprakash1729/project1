@@ -40,7 +40,7 @@ if($share==0){
 $username=trim($_POST["username"]);
 
 if($amount>0 and $share>0 ){
-   $opt9="SELECT COUNT(*) as total9 FROM giftrec  WHERE code='$code' AND username='$username' ";
+   $opt9="SELECT COUNT(*) as total9 FROM dbo.giftrec  WHERE code='$code' AND username='$username' ";
 $optres9=$conn->query($opt9);
 $sum9= mysqli_fetch_assoc($optres9);
 
@@ -50,7 +50,7 @@ if($sum9['total9']=="" or $sum9['total9']=="0" ){
  $conn->query($sql);
   $sql4 = "UPDATE gift SET  amount = ($amount-$new) WHERE code='$code' "; 
  $conn->query($sql4);
-  $sql5 = "INSERT INTO giftrec (code,username,amount ) VALUES ('$code','$username', $new)";
+  $sql5 = "INSERT INTO dbo.giftrec (code,username,amount ) VALUES ('$code','$username', $new)";
                 
                 if ($conn->query($sql5) === TRUE){
                          echo "<script>
@@ -87,7 +87,7 @@ if (isset($_GET["code"])) {
   $code = $_GET["code"];
 
   // Use $code in your SQL query
-  $query = "SELECT * FROM giftrec WHERE code='$code' ORDER BY id DESC";
+  $query = "SELECT * FROM dbo.giftrec WHERE code='$code' ORDER BY id DESC";
   
   // Proceed with executing the query and handling the results...
 } else {

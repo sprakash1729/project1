@@ -28,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST"){
 if(empty($err))
 {
    
-$sql = "UPDATE notice SET notice='$username' WHERE id='1'";
+$sql = "UPDATE dbo.notice SET notice='$username' WHERE id='1'";
 
 $conn->query($sql);
 if ($conn->query($sql) === TRUE) {
@@ -41,7 +41,7 @@ if ($conn->query($sql) === TRUE) {
 
 }
 }
-$sql = "SELECT  notice FROM notice WHERE id='1'";
+$sql = "SELECT  dbo.notice FROM notice WHERE id='1'";
 $result = $conn->query($sql);
 $row = mysqli_fetch_array($result);
 $notice=$row['notice'];

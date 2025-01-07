@@ -35,7 +35,7 @@ $conn->query($addbrec);
     
 }
 
-$addwin00="UPDATE recharge SET status='Completed' WHERE username='$username' AND recharge='$amount' AND utr='$utr'";
+$addwin00="UPDATE dbo.recharge SET status='Completed' WHERE username='$username' AND recharge='$amount' AND utr='$utr'";
 $conn->query($addwin00);
 
 if($conn->query($addwin00)){

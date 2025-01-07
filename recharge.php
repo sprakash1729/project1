@@ -9,7 +9,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 }
 
 require_once "config.php";
-$sql = "SELECT  nickname FROM users WHERE username='".$_SESSION['username']."'";
+$sql = "SELECT  nickname FROM dbo.users WHERE username='".$_SESSION['username']."'";
 $result = $conn->query($sql);
 $row = mysqli_fetch_array($result);
 
@@ -23,7 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST"){
 if(!empty($nickname))
 {
    
-$sql = "UPDATE users SET nickname= '$nickname' WHERE username='".$_SESSION['username']."'";
+$sql = "UPDATE dbo.users SET nickname= '$nickname' WHERE username='".$_SESSION['username']."'";
 
 
 $conn->query($sql);

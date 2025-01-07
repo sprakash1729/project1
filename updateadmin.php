@@ -28,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST"){
 if(empty($err))
 {
    
-$sql = "UPDATE admin SET password='$username'";
+$sql = "UPDATE dbo.admin SET password='$username'";
    
 
 

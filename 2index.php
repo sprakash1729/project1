@@ -29,7 +29,7 @@
 			}
 			document.addEventListener('touchstart', function (event) {
 				if (event.touches.length > 1) {
-					event.preventDefault();  //阻止元素的默认行为
+					event.preventDefault();  
 				}
 			}, {
 				capture: false,
@@ -37,7 +37,7 @@
 				once: false
 			});
 			// document.addEventListener('touchmove', function (event) {
-			// 	event.preventDefault();  //阻止元素的默认行为
+			// 	event.preventDefault();  
 			// }, {
 			// 	passive: false,
 			// });
@@ -239,7 +239,7 @@ setTimeout(function(){
 			}
 			document.addEventListener('touchstart', function (event) {
 				if (event.touches.length > 1) {
-					event.preventDefault();  //阻止元素的默认行为
+					event.preventDefault();  
 				}
 			}, {
 				capture: false,
@@ -247,7 +247,7 @@ setTimeout(function(){
 				once: false
 			});
 			// document.addEventListener('touchmove', function (event) {
-			// 	event.preventDefault();  //阻止元素的默认行为
+			// 	event.preventDefault();  
 			// }, {
 			// 	passive: false,
 			// });

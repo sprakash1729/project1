@@ -13,7 +13,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
                     
 
                        
-$query =  "SELECT * FROM betrec ORDER BY id DESC";
+$query =  "SELECT * FROM dbo.betrec ORDER BY id DESC";
 
 
 // result for method two 

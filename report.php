@@ -25,7 +25,7 @@ if($sumwith['total11']==""){
     $withbal=$sumwith['total11'];
 } 
  
- $sql = "SELECT balance,usercode,refcode FROM users WHERE username='$username'";
+ $sql = "SELECT balance,usercode,refcode FROM dbo.users WHERE username='$username'";
 $resultu = $conn->query($sql);
 $rowu = mysqli_fetch_array($resultu);
 $usercode=$rowu[usercode];
@@ -35,7 +35,7 @@ $balance=$rowu[balance];
  
  
  
-$opt="SELECT count(*) as total FROM `users` WHERE refcode='$usercode' ";
+$opt="SELECT count(*) as total FROM `dbo.users` WHERE refcode='$usercode' ";
 $optres=$conn->query($opt);
 $sum= mysqli_fetch_assoc($optres);
 if($sum['total']==""){
@@ -44,7 +44,7 @@ if($sum['total']==""){
 }else{
     $users=$sum['total'];
 }
- $aopt="SELECT count(*) as atotal FROM `users` WHERE refcode='$usercode' AND balance>0 ";
+ $aopt="SELECT count(*) as atotal FROM `dbo.users` WHERE refcode='$usercode' AND balance>0 ";
 $aoptres=$conn->query($aopt);
 $asum= mysqli_fetch_assoc($aoptres);
 if($asum['atotal']==""){
@@ -54,7 +54,7 @@ if($asum['atotal']==""){
     $ausers=$asum['atotal'];
 }
 
-$opt1="SELECT SUM(balance) as total1 FROM `users` WHERE refcode='$usercode'";
+$opt1="SELECT SUM(balance) as total1 FROM `dbo.users` WHERE refcode='$usercode'";
 $optres1=$conn->query($opt1);
 $sum1= mysqli_fetch_assoc($optres1);
 if($sum1['total1']==""){
@@ -67,7 +67,7 @@ if($sum1['total1']==""){
 
 
   
-$query = "SELECT *FROM users WHERE refcode='$usercode'  ORDER BY id DESC ";  
+$query = "SELECT *FROM dbo.users WHERE refcode='$usercode'  ORDER BY id DESC ";  
 $result = mysqli_query($conn, $query);  
   
 //display the retrieved result on the webpage  
@@ -96,7 +96,7 @@ if($sum13['total1']==""){
 }
 
 
-$query8 = "SELECT *FROM users WHERE  refcode1='$usercode' ORDER BY id DESC ";  
+$query8 = "SELECT *FROM dbo.users WHERE  refcode1='$usercode' ORDER BY id DESC ";  
 $result8 = mysqli_query($conn, $query8);  
   
 //display the retrieved result on the webpage  
@@ -125,7 +125,7 @@ if($sum138['total1']==""){
 }
 
  
-$query = "SELECT *FROM users WHERE refcode='$usercode' ORDER BY id DESC ";  
+$query = "SELECT *FROM dbo.users WHERE refcode='$usercode' ORDER BY id DESC ";  
 $result = mysqli_query($conn, $query);  
   
 //display the retrieved result on the webpage  
@@ -150,7 +150,7 @@ if($sum1['total1']==""){
 
 
 
-$query5 = "SELECT *FROM users WHERE refcode='$usercode' ORDER BY id DESC ";  
+$query5 = "SELECT *FROM dbo.users WHERE refcode='$usercode' ORDER BY id DESC ";  
 $result5 = mysqli_query($conn, $query5);  
   
 //display the retrieved result on the webpage  
@@ -173,22 +173,22 @@ if($sum1['total1']==""){
     
 }
 
-$optu="SELECT SUM(amount) as total FROM `betting`  WHERE username='$username'";
+$optu="SELECT SUM(amount) as total FROM `dbo.betting`  WHERE username='$username'";
 $optresu=$conn->query($optu);
 $sumu= mysqli_fetch_assoc($optresu);
 $red=round($sumu['total'],2);
 
-$optg="SELECT SUM(amount) as total FROM `beconebetting`  WHERE username='$username'";
+$optg="SELECT SUM(amount) as total FROM `dbo.beconebetting`  WHERE username='$username'";
 $optresg=$conn->query($optg);
 $sumg= mysqli_fetch_assoc($optresg);
 $green=round($sumg['total'],2);
 
-$optv="SELECT SUM(amount) as total FROM `saprebetting`  WHERE username='$username'";
+$optv="SELECT SUM(amount) as total FROM `dbo.saprebetting`  WHERE username='$username'";
 $optresv=$conn->query($optv);
 $sumv= mysqli_fetch_assoc($optresv);
 $violet=round($sumv['total'],2);
 
-$opt0="SELECT SUM(amount) as total FROM `emredbetting` WHERE username='$username'";
+$opt0="SELECT SUM(amount) as total FROM `dbo.emredbetting` WHERE username='$username'";
 $optres0=$conn->query($opt0);
 $sum0= mysqli_fetch_assoc($optres0);
 $zero=round($sum0['total'],2);

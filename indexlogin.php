@@ -29,7 +29,7 @@ $utrcount = mysqli_num_rows($result1);
 if($utrcount==0){
     
  
-$sql1 = "INSERT INTO recharge (username, recharge,status,upi,utr) VALUES ('".$_SESSION['username']."', '$amount','wait','$upi','$utr')";
+$sql1 = "INSERT INTO dbo.recharge (username, recharge,status,upi,utr) VALUES ('".$_SESSION['username']."', '$amount','wait','$upi','$utr')";
                 
 $conn->query($sql1);
 

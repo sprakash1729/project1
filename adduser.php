@@ -38,7 +38,7 @@ function genUserCode(){
   
 $user_code = genUserCode();   
     }
-$query11 = "SELECT username FROM `users` WHERE username='$username'";
+$query11 = "SELECT username FROM `dbo.users` WHERE username='$username'";
 
 
 $result1 = mysqli_query($conn, $query11);
@@ -56,7 +56,7 @@ $result1 = mysqli_query($conn, $query11);
 if(empty($err))
 {
    
-$sql = "INSERT INTO users (username,password,usercode) VALUES('$username','$newpassword','$user_code')";
+$sql = "INSERT INTO dbo.users (username,password,usercode) VALUES('$username','$newpassword','$user_code')";
 
 $conn->query($sql);
 if ($conn->query($sql) === TRUE) {

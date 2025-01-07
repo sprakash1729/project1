@@ -11,7 +11,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
                        
 
                        
-$query =  "SELECT * FROM betrec ORDER BY id DESC";
+$query =  "SELECT * FROM dbo.betrec ORDER BY id DESC";
 
 
 // result for method two 
@@ -37,7 +37,7 @@ if (!isset ($_GET['page']) ) {
 $page_first_result = ($page-1) * $results_per_page;  
 
 //retrieve the selected results from database   
-$query = "SELECT *FROM betrec ORDER BY id DESC LIMIT " . $page_first_result . ',' . $results_per_page;  
+$query = "SELECT *FROM dbo.betrec ORDER BY id DESC LIMIT " . $page_first_result . ',' . $results_per_page;  
 $result = mysqli_query($conn, $query);  
   
 //display the retrieved result on the webpage  

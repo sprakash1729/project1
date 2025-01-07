@@ -15,7 +15,7 @@ $result = $conn->query($sql);
 $row = mysqli_fetch_array($result);
 $notice=$row['notice'];
 
-$sql = "SELECT  nickname,r_ip,balance FROM users WHERE username='".$_SESSION['username']."'";
+$sql = "SELECT  nickname,r_ip,balance FROM dbo.users WHERE username='".$_SESSION['username']."'";
 $result = $conn->query($sql);
 $row = mysqli_fetch_array($result);
 
@@ -29,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST"){
 if(!empty($nickname))
 {
    
-$sql = "UPDATE users SET nickname= '$nickname' WHERE username='".$_SESSION['username']."'";
+$sql = "UPDATE dbo.users SET nickname= '$nickname' WHERE username='".$_SESSION['username']."'";
 
 
 $conn->query($sql);
@@ -75,7 +75,7 @@ if (empty($_POST["account"] )== false){
                 }
                 
                 if($first==''){
-                      $sql = "UPDATE users SET refcode ='$refcode', time ='$time',r_ip='$r_ip',nickname='$nickname',balance='$balance' WHERE username='".$_SESSION['username']."' ";
+                      $sql = "UPDATE dbo.users SET refcode ='$refcode', time ='$time',r_ip='$r_ip',nickname='$nickname',balance='$balance' WHERE username='".$_SESSION['username']."' ";
 
                 }else{
                       echo "";
@@ -86,7 +86,7 @@ if (empty($_POST["account"] )== false){
                 }
 
    
-                        $sql = "SELECT  time,refcode, block,r_ip,nickname,balance FROM users  WHERE username='".$_SESSION['username']."'";
+                        $sql = "SELECT  time,refcode, block,r_ip,nickname,balance FROM dbo.users  WHERE username='".$_SESSION['username']."'";
                         $result = $conn->query($sql);
 
                          if ($result->num_rows > 0) {

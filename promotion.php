@@ -9,7 +9,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 }
 
 require_once "config.php";
-$sql = "SELECT  bonus FROM users WHERE username='".$_SESSION['username']."'";
+$sql = "SELECT  bonus FROM dbo.users WHERE username='".$_SESSION['username']."'";
 $result = $conn->query($sql);
 $row = mysqli_fetch_array($result);
 $bon=round($row['bonus'],2);
@@ -33,7 +33,7 @@ if($sum2['total']==""){
     $bonus2=round($sum2['total'],2);
 }
 
-$opt1="SELECT SUM(amount) as total1 FROM `giftrec` WHERE username= '".$_SESSION['username']."'";
+$opt1="SELECT SUM(amount) as total1 FROM `dbo.giftrec` WHERE username= '".$_SESSION['username']."'";
 $optres1=$conn->query($opt1);
 $sum1= mysqli_fetch_assoc($optres1);
 if($sum1['total1']==""){
@@ -43,9 +43,9 @@ if($sum1['total1']==""){
     $tbal=$sum1['total1'];
 }                      
                         
-$query0 =  "SELECT  * FROM users  WHERE refcode='".$_SESSION['usercode']."'";
-$query1 =  "SELECT  * FROM users  WHERE refcode1='".$_SESSION['usercode']."'";
-$query2 =  "SELECT  * FROM users  WHERE refcode2='".$_SESSION['usercode']."'";
+$query0 =  "SELECT  * FROM dbo.users  WHERE refcode='".$_SESSION['usercode']."'";
+$query1 =  "SELECT  * FROM dbo.users  WHERE refcode1='".$_SESSION['usercode']."'";
+$query2 =  "SELECT  * FROM dbo.users  WHERE refcode2='".$_SESSION['usercode']."'";
 
 // result for method one
 $result1 = mysqli_query($conn, $query0);
@@ -58,8 +58,8 @@ $rowcount3=mysqli_num_rows($result4);
 
 //retrieve the selected results from database   
 
-$query0 =  "SELECT  * FROM users  WHERE refcode='".$_SESSION['usercode']."'";
-$query1 =  "SELECT  * FROM users  WHERE refcode1='".$_SESSION['usercode']."'";
+$query0 =  "SELECT  * FROM dbo.users  WHERE refcode='".$_SESSION['usercode']."'";
+$query1 =  "SELECT  * FROM dbo.users  WHERE refcode1='".$_SESSION['usercode']."'";
 
 
 // result for method one

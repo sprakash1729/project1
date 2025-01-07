@@ -11,7 +11,7 @@ require_once "config.php";
    
                       
                         
-$query =  "SELECT  * FROM record WHERE status='Applying' OR status='Processing'  ORDER BY id DESC ";
+$query =  "SELECT  * FROM dbo.record WHERE status='Applying' OR status='Processing'  ORDER BY id DESC ";
 
 
 // result for method one
@@ -26,7 +26,7 @@ $dataRow = "";
 
 while($row2 = mysqli_fetch_array($result2))
 {
-      $query0 =  "SELECT  account,ifsc,upi,name,Address,email,block FROM users  WHERE username='$row2[1]'";
+      $query0 =  "SELECT  account,ifsc,upi,name,Address,email,block FROM dbo.users  WHERE username='$row2[1]'";
 $result3 =$conn->query($query0);
 $row3 = mysqli_fetch_assoc($result3);
 //$bank=$row3['account'];

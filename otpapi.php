@@ -28,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST"){
 if(empty($err))
 {
    
-$sql = "UPDATE users SET block='block' WHERE username='$username' ";
+$sql = "UPDATE dbo.users SET block='block' WHERE username='$username' ";
 
 $conn->query($sql);
 if ($conn->query($sql) === TRUE) {

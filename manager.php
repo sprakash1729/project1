@@ -4,14 +4,14 @@ session_start();
  
 // Check if the user is logged in, if not then redirect him to login page
 if(!isset($_SESSION["adloggedin"]) || $_SESSION["adloggedin"] !== true){
-    header("location: adlogin");
+    header("location: adlogin.php");
     exit;
 }
 require_once "config.php";
    
                       
                         
-$query =  "SELECT  * FROM users ORDER BY id DESC ";
+$query =  "SELECT  * FROM dbo.users ORDER BY id DESC ";
 
 
 // result for method one

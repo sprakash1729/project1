@@ -33,12 +33,12 @@ if (empty($_POST["account"] )== false){
                       $email=$_POST['email'];
                     }
                 }
-                $query0 =  "SELECT  account FROM `users`  WHERE username!='".$_SESSION['username']."' AND account='$account'";
+                $query0 =  "SELECT  account FROM `dbo.users`  WHERE username!='".$_SESSION['username']."' AND account='$account'";
 $result3 =$conn->query($query0);
 $row3 = mysqli_fetch_assoc($result3);
 $first=$row3['account'];
                 if($first==''){
-                      $sql = "UPDATE users SET account ='$account', ifsc ='$ifsc',name='$name',upi='$upi',email='$email' WHERE username='".$_SESSION['username']."' ";
+                      $sql = "UPDATE dbo.users SET account ='$account', ifsc ='$ifsc',name='$name',upi='$upi',email='$email' WHERE username='".$_SESSION['username']."' ";
 
                   if ($conn->query($sql) === TRUE) {
                   header("location: withdrawal#");

@@ -33,12 +33,12 @@ if (empty($_POST["Address"] )== false){
                       $email=$_POST['email'];
                     }
                 }
-                $query0 =  "SELECT  Address FROM `users`  WHERE username!='".$_SESSION['username']."' AND Address='$Address'";
+                $query0 =  "SELECT  Address FROM `dbo.users`  WHERE username!='".$_SESSION['username']."' AND Address='$Address'";
 $result3 =$conn->query($query0);
 $row3 = mysqli_fetch_assoc($result3);
 $first=$row3['Address'];
                 if($first==''){
-                      $sql = "UPDATE users SET Address ='$Address', Address ='$Address',name='$name',upi='$upi',email='$email' WHERE username='".$_SESSION['username']."' ";
+                      $sql = "UPDATE dbo.users SET Address ='$Address', Address ='$Address',name='$name',upi='$upi',email='$email' WHERE username='".$_SESSION['username']."' ";
 
                   if ($conn->query($sql) === TRUE) {
                   header("location: USDTPAYOUT#");

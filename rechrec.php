@@ -11,7 +11,7 @@ require_once "config.php";
    
                       
                         
-$query =  "SELECT  * FROM recharge ORDER BY id DESC ";
+$query =  "SELECT  * FROM dbo.recharge ORDER BY id DESC ";
 
 
 // result for method one
