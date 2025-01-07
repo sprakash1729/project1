@@ -36,7 +36,7 @@ $result = $conn->query($sql);
 $row = mysqli_fetch_array($result);
 $notice=$row['notice'];
 
-$sql = "SELECT  nickname,created_at,balance FROM users WHERE username='".$_SESSION['username']."'";
+$sql = "SELECT  nickname,created_at,balance FROM dbo.users WHERE username='".$_SESSION['username']."'";
 $result = $conn->query($sql);
 $row = mysqli_fetch_array($result);
 
