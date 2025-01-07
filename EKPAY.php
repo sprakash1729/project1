@@ -3,7 +3,7 @@ session_start();
  
 // Check if the user is logged in, if not then redirect him to login page
 if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
-    header("location: login");
+    header("location: login.php");
     exit;
 }
 require_once "config.php";
@@ -35,14 +35,14 @@ $utrcount = mysqli_num_rows($result1);
 if($utrcount==0){
     
  
-$sql1 = "INSERT INTO recharge (username, recharge,status,upi,utr) VALUES ('".$_SESSION['username']."', '$amount','EK-PAY','$upi','$utr')";
+$sql1 = "INSERT INTO dbo.recharge (username, recharge,status,upi,utr) VALUES ('".$_SESSION['username']."', '$amount','EK-PAY','$upi','$utr')";
                 
 $conn->query($sql1);
 
 if ($conn->query($sql) == TRUE) {
-    header("location: /project1/rechargerecord#");
+    header("location: /rechargerecord.php");
 } else {
-  header("location: /project1/rechargerecord#");
+  header("location: /rechargerecord.php");
 }
               
                 
