@@ -1,3 +1,23 @@
+
+<?php
+$serverName = getenv("AZURE_SQL_SERVERNAME");
+$database = getenv("AZURE_SQL_DATABASE");
+$username = getenv("AZURE_SQL_UID");
+$password = getenv("AZURE_SQL_PWD");
+
+$connectionOptions = array(
+    "Database" => $database, 
+    "Uid" => $username,
+    "PWD" => $password
+);
+
+$conn = sqlsrv_connect($serverName, $connectionOptions);
+
+if ($conn === false) {
+    die(print_r(sqlsrv_errors(), true));
+}
+?>
+
 <?php
 //This script will handle login
 session_start();
@@ -10,7 +30,7 @@ if(isset($_SESSION['username']))
 }
 
 require_once "config.php";
-$sqlr = "SELECT status FROM dbo.otp WHERE id='1'";
+$sqlr = "SELECT status FROM dbo.dbo.otp WHERE id='1'";
 $resultr = $conn->query($sqlr);
 $rowr = mysqli_fetch_array($resultr);
 if ($rowr !== null && isset($rowr['status'])) {
@@ -52,7 +72,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["otp"])) {
 }
 //$otp=trim($_POST["otp"]);
 $otp = '';
-$query0 =  "SELECT  username FROM dbo.verify  WHERE otp='$otp'";
+$query0 =  "SELECT  username FROM dbo.dbo.verify  WHERE otp='$otp'";
 $result3 =$conn->query($query0);
 $row3 = mysqli_fetch_assoc($result3);
 if ($row3 !== null && isset($row3['username'])) {
@@ -94,7 +114,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $username_err = "Username can only contain letters, numbers, and underscores.";
     } else{
         // Prepare a select statement
-        $sql = "SELECT id FROM users WHERE username = ?";
+        $sql = "SELECT id FROM dbo.users WHERE username = ?";
         
         if($stmt = mysqli_prepare($conn, $sql)){
             // Bind variables to the prepared statement as parameters
@@ -132,7 +152,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     }
     $refcode = trim($_POST["refcode"]);
     // Validate confirm password
-   $sql3 = "SELECT refcode,refcode1 FROM dbo.users WHERE usercode='$refcode'";
+   $sql3 = "SELECT refcode,refcode1 FROM dbo.dbo.users WHERE usercode='$refcode'";
    $result3 =$conn->query($sql3);
    $row3 = mysqli_fetch_assoc($result3);
    
@@ -143,7 +163,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     if(empty($password_err) ){
         
         // Prepare an insert statement
-        $sql = "INSERT INTO dbo.users (username, password, refcode,refcode1,refcode2,r_ip) VALUES (?,?,?,?,?,?)";
+        $sql = "INSERT INTO dbo.dbo.users (username, password, refcode,refcode1,refcode2,r_ip) VALUES (?,?,?,?,?,?)";
          
         if($stmt = mysqli_prepare($conn, $sql)){
             // Bind variables to the prepared statement as parameters
@@ -161,7 +181,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             // Attempt to execute the prepared statement
             if(mysqli_stmt_execute($stmt)){
                 // Redirect to login page
-                $addwin0="UPDATE dbo.users SET balance= balance +1 WHERE usercode=$refcode";
+                $addwin0="UPDATE dbo.dbo.users SET balance= balance +1 WHERE usercode=$refcode";
                 $conn->query($addwin0);
                 header("location: mylogin.php");
             } else{
@@ -216,6 +236,34 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
  <!DOCTYPE html>
 <html lang="en" translate="no" data-dpr="1" style="font-size: 38.32px;"><head>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+<style>
+    body {
+        background-color: #f8f9fa;
+        color: #343a40;
+    }
+    .navbar {
+        background-color: #6f42c1;
+    }
+    .navbar-brand, .nav-link {
+        color: #fff !important;
+    }
+    .card {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        border: none;
+        border-radius: 15px;
+    }
+    .btn-primary {
+        background-color: #6f42c1;
+        border-color: #6f42c1;
+    }
+    .btn-primary:hover {
+        background-color: #563d7c;
+        border-color: #563d7c;
+    }
+</style>
+
 <meta charset="UTF-8">
 <link rel="icon" href="./ico.png">
 <meta name="google" content="notranslate">

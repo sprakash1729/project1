@@ -1,4 +1,24 @@
 
+<?php
+$serverName = getenv("AZURE_SQL_SERVERNAME");
+$database = getenv("AZURE_SQL_DATABASE");
+$username = getenv("AZURE_SQL_UID");
+$password = getenv("AZURE_SQL_PWD");
+
+$connectionOptions = array(
+    "Database" => $database, 
+    "Uid" => $username,
+    "PWD" => $password
+);
+
+$conn = sqlsrv_connect($serverName, $connectionOptions);
+
+if ($conn === false) {
+    die(print_r(sqlsrv_errors(), true));
+}
+?>
+
+
 
  
 <?php
@@ -16,7 +36,7 @@ if($conn == false){
     dir('Error: Cannot connect');
 }
    
-    $sql = "SELECT * FROM record WHERE id='1'";
+    $sql = "SELECT * FROM dbo.record WHERE id='1'";
     $result = mysqli_query($conn, $sql);
     $row = mysqli_fetch_object($result);
     

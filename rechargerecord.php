@@ -1,3 +1,23 @@
+
+<?php
+$serverName = getenv("AZURE_SQL_SERVERNAME");
+$database = getenv("AZURE_SQL_DATABASE");
+$username = getenv("AZURE_SQL_UID");
+$password = getenv("AZURE_SQL_PWD");
+
+$connectionOptions = array(
+    "Database" => $database, 
+    "Uid" => $username,
+    "PWD" => $password
+);
+
+$conn = sqlsrv_connect($serverName, $connectionOptions);
+
+if ($conn === false) {
+    die(print_r(sqlsrv_errors(), true));
+}
+?>
+
 <?php
 
 // Initialize the session
@@ -12,7 +32,7 @@ require_once "config.php";
 
 // mysql select query
 
-$query1 = "SELECT * FROM `dbo.recharge` WHERE username='".$_SESSION['username']."' ";
+$query1 = "SELECT * FROM dbo.dbo.recharge WHERE username='".$_SESSION['username']."' ";
 
 
 // result for method one
@@ -35,11 +55,11 @@ if (!isset ($_GET['page']) ) {
     $page = $_GET['page'];  
 }  
  
-//determine the sql LIMIT starting number for the results on the displaying page  
+//determine the sql OFFSET starting number for the results on the displaying page  
 $page_first_result = ($page-1) * $results_per_page;  
 
 //retrieve the selected results from database   
-$query = "SELECT * FROM `dbo.recharge` WHERE username='".$_SESSION['username']."' ORDER BY id DESC" ;  
+$query = "SELECT * FROM dbo.dbo.recharge WHERE username='".$_SESSION['username']."' ORDER BY id DESC" ;  
 $result = mysqli_query($conn, $query);  
 
 //display the retrieved result on the webpage  
@@ -97,6 +117,34 @@ while ($row2 = mysqli_fetch_array($result)) {
 ?>
 
 <html lang="en" translate="no" data-dpr="1" style="font-size: 38.32px;"><head>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+<style>
+    body {
+        background-color: #f8f9fa;
+        color: #343a40;
+    }
+    .navbar {
+        background-color: #6f42c1;
+    }
+    .navbar-brand, .nav-link {
+        color: #fff !important;
+    }
+    .card {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        border: none;
+        border-radius: 15px;
+    }
+    .btn-primary {
+        background-color: #6f42c1;
+        border-color: #6f42c1;
+    }
+    .btn-primary:hover {
+        background-color: #563d7c;
+        border-color: #563d7c;
+    }
+</style>
+
 <meta charset="UTF-8">
 <link rel="icon" href="./ico.png">
 <meta name="google" content="notranslate">

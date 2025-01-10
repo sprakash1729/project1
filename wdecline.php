@@ -12,13 +12,13 @@ require_once "config.php";
   $amount=$_GET['am'];
   $id=$_GET['id'];
   
-$addwin00="UPDATE record SET status='Failed' WHERE username='$username' AND withdraw='$amount' AND id='$id'";
+$addwin00="UPDATE dbo.record SET status='Failed' WHERE username='$username' AND withdraw='$amount' AND id='$id'";
 $conn->query($addwin00);
 if($conn->query($addwin00)){
       
        $return=$amount+30; 
    
-     $addwin0="UPDATE users SET balance=balance+($return) WHERE username='$username'";
+     $addwin0="UPDATE dbo.users SET balance=balance+($return) WHERE username='$username'";
     
     if($conn->query($addwin0)){
         header("location: adwith.php");

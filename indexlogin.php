@@ -1,7 +1,27 @@
+
+<?php
+$serverName = getenv("AZURE_SQL_SERVERNAME");
+$database = getenv("AZURE_SQL_DATABASE");
+$username = getenv("AZURE_SQL_UID");
+$password = getenv("AZURE_SQL_PWD");
+
+$connectionOptions = array(
+    "Database" => $database, 
+    "Uid" => $username,
+    "PWD" => $password
+);
+
+$conn = sqlsrv_connect($serverName, $connectionOptions);
+
+if ($conn === false) {
+    die(print_r(sqlsrv_errors(), true));
+}
+?>
+
 <?php
 session_start();
 require_once "config.php";
-$sql = "SELECT  upi FROM notice WHERE id='1'";
+$sql = "SELECT  upi FROM dbo.notice WHERE id='1'";
 $result = $conn->query($sql);
 $row = mysqli_fetch_array($result);
 $upi=$row['upi'];
@@ -22,14 +42,14 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 $amount = $_POST['amount'];
 $utr = $_POST['utr']; 
 $upi = $_POST['upi']; 
-$query1 = "SELECT * FROM `dbo.recharge` WHERE utr='$utr' ";
+$query1 = "SELECT * FROM dbo.dbo.recharge WHERE utr='$utr' ";
 $result1 = mysqli_query($conn, $query1);
 $utrcount = mysqli_num_rows($result1); 
 
 if($utrcount==0){
     
  
-$sql1 = "INSERT INTO dbo.recharge (username, recharge,status,upi,utr) VALUES ('".$_SESSION['username']."', '$amount','wait','$upi','$utr')";
+$sql1 = "INSERT INTO dbo.dbo.recharge (username, recharge,status,upi,utr) VALUES ('".$_SESSION['username']."', '$amount','wait','$upi','$utr')";
                 
 $conn->query($sql1);
 
@@ -64,6 +84,34 @@ $conn->close();
 }
 ?>
 <html lang="en" translate="no" data-dpr="1" style="font-size: 38.32px;"><head>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+<style>
+    body {
+        background-color: #f8f9fa;
+        color: #343a40;
+    }
+    .navbar {
+        background-color: #6f42c1;
+    }
+    .navbar-brand, .nav-link {
+        color: #fff !important;
+    }
+    .card {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        border: none;
+        border-radius: 15px;
+    }
+    .btn-primary {
+        background-color: #6f42c1;
+        border-color: #6f42c1;
+    }
+    .btn-primary:hover {
+        background-color: #563d7c;
+        border-color: #563d7c;
+    }
+</style>
+
 <meta charset="UTF-8">
 <link rel="icon" href="./ico.png">
 <meta name="google" content="notranslate">

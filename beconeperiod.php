@@ -1,3 +1,23 @@
+
+<?php
+$serverName = getenv("AZURE_SQL_SERVERNAME");
+$database = getenv("AZURE_SQL_DATABASE");
+$username = getenv("AZURE_SQL_UID");
+$password = getenv("AZURE_SQL_PWD");
+
+$connectionOptions = array(
+    "Database" => $database, 
+    "Uid" => $username,
+    "PWD" => $password
+);
+
+$conn = sqlsrv_connect($serverName, $connectionOptions);
+
+if ($conn === false) {
+    die(print_r(sqlsrv_errors(), true));
+}
+?>
+
 <?php
 // Initialize the session
 session_start();
@@ -8,7 +28,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     exit;
 }
 require_once "config.php";
-$sql3 = "SELECT period FROM beconeperiod WHERE id='1'";
+$sql3 = "SELECT period FROM dbo.beconeperiod WHERE id='1'";
 $result3 =$conn->query($sql3);
 $row3 = mysqli_fetch_assoc($result3);
 echo $row3['period'];

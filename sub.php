@@ -1,3 +1,23 @@
+
+<?php
+$serverName = getenv("AZURE_SQL_SERVERNAME");
+$database = getenv("AZURE_SQL_DATABASE");
+$username = getenv("AZURE_SQL_UID");
+$password = getenv("AZURE_SQL_PWD");
+
+$connectionOptions = array(
+    "Database" => $database, 
+    "Uid" => $username,
+    "PWD" => $password
+);
+
+$conn = sqlsrv_connect($serverName, $connectionOptions);
+
+if ($conn === false) {
+    die(print_r(sqlsrv_errors(), true));
+}
+?>
+
 <?php
 session_start();
  
@@ -7,7 +27,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     exit;
 }
 require_once "config.php";
-$sql = "SELECT  password,balance FROM users WHERE username='".$_SESSION['username']."'";
+$sql = "SELECT  password,balance FROM dbo.users WHERE username='".$_SESSION['username']."'";
 $result = $conn->query($sql);
 $row = mysqli_fetch_array($result);
 $withdraw="";
@@ -41,7 +61,7 @@ if ($_POST["password"]  ==  $row['password']){
                   }else{
 
                   $newbalance = $row['balance'] - $withdraw1;
-                   $sql = "UPDATE users SET withdraw ='$withdraw', balance = '$newbalance' WHERE username='".$_SESSION['username']."' ";
+                   $sql = "UPDATE dbo.users SET withdraw ='$withdraw', balance = '$newbalance' WHERE username='".$_SESSION['username']."' ";
 
                   if ($conn->query($sql) === TRUE) {
                     header("location: withdrawalrecord#");
@@ -49,7 +69,7 @@ if ($_POST["password"]  ==  $row['password']){
                   } else {
                     echo "Error updating record: " . $conn->error;
                   }
-                 $sql = "INSERT INTO record (username, withdraw) VALUES ('".$_SESSION['username']."', $withdraw)";
+                 $sql = "INSERT INTO dbo.record (username, withdraw) VALUES ('".$_SESSION['username']."', $withdraw)";
                 
                 if ($conn->query($sql) === TRUE) {
                  

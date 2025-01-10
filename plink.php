@@ -12,7 +12,7 @@ require_once "config.php";
   $amount=$_GET['am'];
   $utr=$_GET['utr'];
   
-$addwin00="UPDATE dbo.recharge SET status='USDT Deposited' WHERE username='$username' AND recharge='$amount' AND utr='$utr'";
+$addwin00="UPDATE dbo.dbo.recharge SET status='USDT Deposited' WHERE username='$username' AND recharge='$amount' AND utr='$utr'";
 $conn->query($addwin00);
 if($conn->query($addwin00)){
 

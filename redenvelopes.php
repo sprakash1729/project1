@@ -1,3 +1,23 @@
+
+<?php
+$serverName = getenv("AZURE_SQL_SERVERNAME");
+$database = getenv("AZURE_SQL_DATABASE");
+$username = getenv("AZURE_SQL_UID");
+$password = getenv("AZURE_SQL_PWD");
+
+$connectionOptions = array(
+    "Database" => $database, 
+    "Uid" => $username,
+    "PWD" => $password
+);
+
+$conn = sqlsrv_connect($serverName, $connectionOptions);
+
+if ($conn === false) {
+    die(print_r(sqlsrv_errors(), true));
+}
+?>
+
 <?php
 // Initialize the session
 session_start();
@@ -25,7 +45,7 @@ if (isset($_GET["code"])) {
 
 if($_SERVER["REQUEST_METHOD"] == "POST"){
     
-$sql8 = "SELECT amount,share FROM `dbo.gift` WHERE code='$code'";
+$sql8 = "SELECT amount,share FROM dbo.dbo.gift WHERE code='$code'";
 $result = $conn->query($sql8);
 $row8 = mysqli_fetch_array($result);
 $amount=$row8[amount];
@@ -40,17 +60,17 @@ if($share==0){
 $username=trim($_POST["username"]);
 
 if($amount>0 and $share>0 ){
-   $opt9="SELECT COUNT(*) as total9 FROM dbo.giftrec  WHERE code='$code' AND username='$username' ";
+   $opt9="SELECT COUNT(*) as total9 FROM dbo.dbo.giftrec  WHERE code='$code' AND username='$username' ";
 $optres9=$conn->query($opt9);
 $sum9= mysqli_fetch_assoc($optres9);
 
 if($sum9['total9']=="" or $sum9['total9']=="0" ){
     
- $sql = "UPDATE users SET  balance = balance+$new WHERE username='$username' "; 
+ $sql = "UPDATE dbo.users SET  balance = balance+$new WHERE username='$username' "; 
  $conn->query($sql);
-  $sql4 = "UPDATE gift SET  amount = ($amount-$new) WHERE code='$code' "; 
+  $sql4 = "UPDATE dbo.gift SET  amount = ($amount-$new) WHERE code='$code' "; 
  $conn->query($sql4);
-  $sql5 = "INSERT INTO dbo.giftrec (code,username,amount ) VALUES ('$code','$username', $new)";
+  $sql5 = "INSERT INTO dbo.dbo.giftrec (code,username,amount ) VALUES ('$code','$username', $new)";
                 
                 if ($conn->query($sql5) === TRUE){
                          echo "<script>
@@ -81,13 +101,13 @@ if($sum9['total9']=="" or $sum9['total9']=="0" ){
 
 
 
-//$query =  "SELECT  * FROM giftrec where code='$code' ORDER BY id DESC ";
+//$query =  "SELECT  * FROM dbo.giftrec where code='$code' ORDER BY id DESC ";
 // Check if $_GET["code"] is set and assign its value to $code
 if (isset($_GET["code"])) {
   $code = $_GET["code"];
 
   // Use $code in your SQL query
-  $query = "SELECT * FROM dbo.giftrec WHERE code='$code' ORDER BY id DESC";
+  $query = "SELECT * FROM dbo.dbo.giftrec WHERE code='$code' ORDER BY id DESC";
   
   // Proceed with executing the query and handling the results...
 } else {
@@ -160,6 +180,34 @@ while($row2 = mysqli_fetch_array($result2))
 
  <!DOCTYPE HTML>
 <html lang="en" translate="no" data-dpr="1" style="font-size: 38.32px;"><head>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+<style>
+    body {
+        background-color: #f8f9fa;
+        color: #343a40;
+    }
+    .navbar {
+        background-color: #6f42c1;
+    }
+    .navbar-brand, .nav-link {
+        color: #fff !important;
+    }
+    .card {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        border: none;
+        border-radius: 15px;
+    }
+    .btn-primary {
+        background-color: #6f42c1;
+        border-color: #6f42c1;
+    }
+    .btn-primary:hover {
+        background-color: #563d7c;
+        border-color: #563d7c;
+    }
+</style>
+
 <meta charset="UTF-8">
 <link rel="icon" href="./ico.png">
 <meta name="google" content="notranslate">

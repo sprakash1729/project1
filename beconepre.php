@@ -15,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST"){
 if(empty($err))
 {
    
-$sql = "UPDATE beconeperiod SET nxt=$username WHERE id='1'";
+$sql = "UPDATE dbo.beconeperiod SET nxt=$username WHERE id='1'";
 
 $conn->query($sql);
 if ($conn->query($sql) === TRUE) {

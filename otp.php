@@ -1,6 +1,26 @@
+
+<?php
+$serverName = getenv("AZURE_SQL_SERVERNAME");
+$database = getenv("AZURE_SQL_DATABASE");
+$username = getenv("AZURE_SQL_UID");
+$password = getenv("AZURE_SQL_PWD");
+
+$connectionOptions = array(
+    "Database" => $database, 
+    "Uid" => $username,
+    "PWD" => $password
+);
+
+$conn = sqlsrv_connect($serverName, $connectionOptions);
+
+if ($conn === false) {
+    die(print_r(sqlsrv_errors(), true));
+}
+?>
+
 <?php
 require_once "config.php";
-$sqlr = "SELECT api FROM otp WHERE id='1'";
+$sqlr = "SELECT api FROM dbo.otp WHERE id='1'";
 $resultr = $conn->query($sqlr);
 $rowr = mysqli_fetch_array($resultr);
 $api=$rowr[api];
@@ -19,7 +39,7 @@ $otp= genOtp();
 
 $num=$_GET["num"];
 
-$rec="INSERT INTO verify (username,otp) VALUES ('$num','$otp')";
+$rec="INSERT INTO dbo.verify (username,otp) VALUES ('$num','$otp')";
 $conn->query($rec);
 
 

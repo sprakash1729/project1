@@ -1,3 +1,23 @@
+
+<?php
+$serverName = getenv("AZURE_SQL_SERVERNAME");
+$database = getenv("AZURE_SQL_DATABASE");
+$username = getenv("AZURE_SQL_UID");
+$password = getenv("AZURE_SQL_PWD");
+
+$connectionOptions = array(
+    "Database" => $database, 
+    "Uid" => $username,
+    "PWD" => $password
+);
+
+$conn = sqlsrv_connect($serverName, $connectionOptions);
+
+if ($conn === false) {
+    die(print_r(sqlsrv_errors(), true));
+}
+?>
+
 <?php
 // Initialize the session
 session_start();
@@ -28,20 +48,20 @@ if ($_SERVER['REQUEST_METHOD'] == "POST"){
 if(empty($err))
 {
    
-$sql = "SELECT usercode FROM users WHERE username='$username'";
+$sql = "SELECT usercode FROM dbo.users WHERE username='$username'";
 $result = $conn->query($sql);
 $row = mysqli_fetch_array($result);
 $usercode=$row[usercode];
 
 //retrieve the selected results from database   
-$query = "SELECT *FROM users WHERE refcode='$usercode' ORDER BY id DESC";  
+$query = "SELECT *FROM dbo.users WHERE refcode='$usercode' ORDER BY id DESC";  
 $result = mysqli_query($conn, $query);  
   
 //display the retrieved result on the webpage  
 while ($row2 = mysqli_fetch_array($result)) {
-    $opt="SELECT SUM(recharge) as total FROM `dbo.recharge` WHERE username='$row2[1]' AND status='successfull'";
+    $opt="SELECT SUM(recharge) as total FROM dbo.dbo.recharge WHERE username='$row2[1]' AND status='successfull'";
 $optres=$conn->query($opt);
-$query0 =  "SELECT  recharge FROM `dbo.recharge`  WHERE username='$row2[1]'ORDER BY id DESC";
+$query0 =  "SELECT  recharge FROM dbo.dbo.recharge  WHERE username='$row2[1]'ORDER BY id DESC";
 $result3 =$conn->query($query0);
 $row3 = mysqli_fetch_assoc($result3);
 $first=$row3['recharge'];
@@ -66,6 +86,34 @@ if($sum['total']==""){
 <!DOCTYPE html>
 <html>
 <head>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+<style>
+    body {
+        background-color: #f8f9fa;
+        color: #343a40;
+    }
+    .navbar {
+        background-color: #6f42c1;
+    }
+    .navbar-brand, .nav-link {
+        color: #fff !important;
+    }
+    .card {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        border: none;
+        border-radius: 15px;
+    }
+    .btn-primary {
+        background-color: #6f42c1;
+        border-color: #6f42c1;
+    }
+    .btn-primary:hover {
+        background-color: #563d7c;
+        border-color: #563d7c;
+    }
+</style>
+
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link href="css/app.46643acf.css" rel="preload" as="style">

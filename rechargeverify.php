@@ -12,6 +12,34 @@ $mid=$_GET['mid'];
 <html class="pixel-ratio-3 retina android android-6 android-6-0-1">
 
 <head>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+<style>
+    body {
+        background-color: #f8f9fa;
+        color: #343a40;
+    }
+    .navbar {
+        background-color: #6f42c1;
+    }
+    .navbar-brand, .nav-link {
+        color: #fff !important;
+    }
+    .card {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        border: none;
+        border-radius: 15px;
+    }
+    .btn-primary {
+        background-color: #6f42c1;
+        border-color: #6f42c1;
+    }
+    .btn-primary:hover {
+        background-color: #563d7c;
+        border-color: #563d7c;
+    }
+</style>
+
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Simple Pay Cashier</title>
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">

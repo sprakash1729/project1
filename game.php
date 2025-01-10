@@ -1,3 +1,23 @@
+
+<?php
+$serverName = getenv("AZURE_SQL_SERVERNAME");
+$database = getenv("AZURE_SQL_DATABASE");
+$username = getenv("AZURE_SQL_UID");
+$password = getenv("AZURE_SQL_PWD");
+
+$connectionOptions = array(
+    "Database" => $database, 
+    "Uid" => $username,
+    "PWD" => $password
+);
+
+$conn = sqlsrv_connect($serverName, $connectionOptions);
+
+if ($conn === false) {
+    die(print_r(sqlsrv_errors(), true));
+}
+?>
+
 v
 
 
@@ -22,7 +42,7 @@ $firstperiodid=date('Ymd').sprintf("%03d",1);
 $lastperiodid=date('Ymd',strtotime("-1 days")).sprintf("%03d",480);
 
 
-$sql3 = "SELECT period,nxt FROM sapreperiod WHERE id='1'";
+$sql3 = "SELECT period,nxt FROM dbo.sapreperiod WHERE id='1'";
 $result3 =$conn->query($sql3);
 $row3 = mysqli_fetch_assoc($result3);
 $period=$row3['period'];
@@ -30,12 +50,12 @@ $next=$row3['nxt'];
 echo"$next <br>";
 
 if($next==11){
-    $opt1="SELECT SUM(amount) as total1 FROM saprebetting WHERE ans='green' AND status='pending'";
+    $opt1="SELECT SUM(amount) as total1 FROM dbo.saprebetting WHERE ans='green' AND status='pending'";
     $opt1res=$conn->query($opt1);
     $sum1 = mysqli_fetch_assoc($opt1res);
     
     
-    $opt0="SELECT SUM(amount) as total0 FROM saprebetting WHERE ans='red' AND status='pending'";
+    $opt0="SELECT SUM(amount) as total0 FROM dbo.saprebetting WHERE ans='red' AND status='pending'";
     $opt0res=$conn->query($opt0);
     $sum0 = mysqli_fetch_assoc($opt0res);
     
@@ -87,14 +107,14 @@ if($e==0){
  $res='green';
 }
 
-$exist="SELECT COUNT(*) as betnum FROM saprebetting WHERE status='pending'";
+$exist="SELECT COUNT(*) as betnum FROM dbo.saprebetting WHERE status='pending'";
 $existres=$conn->query($exist);
 $exists= mysqli_fetch_assoc($existres);
 
 
 if( $exists['betnum']==0){
    
-$rec="INSERT INTO saprebetrec (period,ans,num,clo,res1) VALUES ($period,$ans,$num,'$res','$res1')";
+$rec="INSERT INTO dbo.saprebetrec (period,ans,num,clo,res1) VALUES ($period,$ans,$num,'$res','$res1')";
 $conn->query($rec);
 
 
@@ -103,10 +123,10 @@ $conn->query($rec);
 }else{
     
     
-$addwin00="UPDATE saprebetting SET res='fail',price=$num,number=$prices,color='$res',color2='$res1' WHERE period=$period ";
+$addwin00="UPDATE dbo.saprebetting SET res='fail',price=$num,number=$prices,color='$res',color2='$res1' WHERE period=$period ";
 $conn->query($addwin00);
 
-$bet0q="SELECT username,amount FROM saprebetting WHERE status='pending' ";
+$bet0q="SELECT username,amount FROM dbo.saprebetting WHERE status='pending' ";
     $betres0q=$conn->query($bet0q);
     while($row0 = mysqli_fetch_array($betres0q)){
  
@@ -115,26 +135,26 @@ $bet0q="SELECT username,amount FROM saprebetting WHERE status='pending' ";
     $b1=(30/100)*((5/100)*$fbets0);
     $b2=(20/100)*((5/100)*$fbets0);
     $b3=(10/100)*((5/100)*$fbets0);
-    $uc="SELECT refcode,refcode1,refcode2 FROM users WHERE username='$winner0'";
+    $uc="SELECT refcode,refcode1,refcode2 FROM dbo.users WHERE username='$winner0'";
     $ucc=$conn->query($uc);
     $getuc= mysqli_fetch_assoc($ucc);
     $r=$getuc['refcode'];
     $r1=$getuc['refcode1'];
     $r2=$getuc['refcode2'];
     if($r!=""){
-        $addb1="UPDATE users SET bonus= bonus +$b1 WHERE usercode='$r'";
+        $addb1="UPDATE dbo.users SET bonus= bonus +$b1 WHERE usercode='$r'";
         $conn->query($addb1);
-        $recb1="INSERT INTO bonus (giver,usercode,amount,level) VALUES ('$winner0','$r','$b1','1')";
+        $recb1="INSERT INTO dbo.bonus (giver,usercode,amount,level) VALUES ('$winner0','$r','$b1','1')";
         $conn->query($recb1);
         if($r1!=""){
-            $addb2="UPDATE users SET bonus= bonus +$b2 WHERE usercode='$r1'";
+            $addb2="UPDATE dbo.users SET bonus= bonus +$b2 WHERE usercode='$r1'";
             $conn->query($addb2);
-            $recb2="INSERT INTO bonus (giver,usercode,amount,level) VALUES ('$winner0','$r1','$b2','2')";
+            $recb2="INSERT INTO dbo.bonus (giver,usercode,amount,level) VALUES ('$winner0','$r1','$b2','2')";
             $conn->query($recb2);
             if($r2!=""){
-                $addb3="UPDATE users SET bonus= bonus +$b3 WHERE usercode='$r2'";
+                $addb3="UPDATE dbo.users SET bonus= bonus +$b3 WHERE usercode='$r2'";
                 $conn->query($addb3);
-                $recb2="INSERT INTO bonus (giver,usercode,amount,level) VALUES ('$winner0','$r2','$b3','3')";
+                $recb2="INSERT INTO dbo.bonus (giver,usercode,amount,level) VALUES ('$winner0','$r2','$b3','3')";
                 $conn->query($recb2);
                 
             }
@@ -147,7 +167,7 @@ $bet0q="SELECT username,amount FROM saprebetting WHERE status='pending' ";
 switch ($prices) {
 
   case "1":
-    $bet0="SELECT username,amount FROM saprebetting WHERE status='pending' AND ans=1";
+    $bet0="SELECT username,amount FROM dbo.saprebetting WHERE status='pending' AND ans=1";
     $betres0=$conn->query($bet0);
     while($row0 = mysqli_fetch_array($betres0)){
  
@@ -155,9 +175,9 @@ switch ($prices) {
     $fbets0= $row0['amount'];
     $winamount0= ($fbets0-(5/100)*$fbets0)*9;
     echo $winner0;
-    $addwin0="UPDATE users SET balance= balance +$winamount0 WHERE username=$winner0";
+    $addwin0="UPDATE dbo.users SET balance= balance +$winamount0 WHERE username=$winner0";
     $conn->query($addwin0);
-    $addwin0="UPDATE saprebetting SET res='success' WHERE username=$winner0 AND period=$period AND ans='$prices'";
+    $addwin0="UPDATE dbo.saprebetting SET res='success' WHERE username=$winner0 AND period=$period AND ans='$prices'";
     $conn->query($addwin0);
  
  
@@ -166,7 +186,7 @@ switch ($prices) {
     
     break;
   case "3":
-    $bet0="SELECT username,amount FROM saprebetting WHERE status='pending' AND ans=3";
+    $bet0="SELECT username,amount FROM dbo.saprebetting WHERE status='pending' AND ans=3";
     $betres0=$conn->query($bet0);
     while($row0 = mysqli_fetch_array($betres0)){
  
@@ -174,16 +194,16 @@ switch ($prices) {
     $fbets0= $row0['amount'];
     $winamount0= ($fbets0-(5/100)*$fbets0)*9;
     echo $winner0;
-    $addwin0="UPDATE users SET balance= balance +$winamount0 WHERE username=$winner0";
+    $addwin0="UPDATE dbo.users SET balance= balance +$winamount0 WHERE username=$winner0";
     $conn->query($addwin0);
-    $addwin0="UPDATE saprebetting SET res='success' WHERE username=$winner0 AND period=$period AND ans='$prices'";
+    $addwin0="UPDATE dbo.saprebetting SET res='success' WHERE username=$winner0 AND period=$period AND ans='$prices'";
     $conn->query($addwin0);
    
  
     }
       break;
   case "2":
-    $bet0="SELECT username,amount FROM saprebetting WHERE status='pending' AND ans=2";
+    $bet0="SELECT username,amount FROM dbo.saprebetting WHERE status='pending' AND ans=2";
     $betres0=$conn->query($bet0);
     while($row0 = mysqli_fetch_array($betres0)){
  
@@ -191,15 +211,15 @@ switch ($prices) {
     $fbets0= $row0['amount'];
     $winamount0= ($fbets0-(5/100)*$fbets0)*9;
     echo $winner0;
-    $addwin0="UPDATE users SET balance= balance +$winamount0 WHERE username=$winner0";
+    $addwin0="UPDATE dbo.users SET balance= balance +$winamount0 WHERE username=$winner0";
     $conn->query($addwin0);
-    $addwin0="UPDATE saprebetting SET res='success' WHERE username=$winner0 AND period=$period AND ans='$prices'";
+    $addwin0="UPDATE dbo.saprebetting SET res='success' WHERE username=$winner0 AND period=$period AND ans='$prices'";
     $conn->query($addwin0);
    
     }
     break;
   case "4":
-   $bet0="SELECT username,amount FROM saprebetting WHERE status='pending' AND ans=4";
+   $bet0="SELECT username,amount FROM dbo.saprebetting WHERE status='pending' AND ans=4";
      $betres0=$conn->query($bet0);
     while($row0 = mysqli_fetch_array($betres0)){
  
@@ -207,16 +227,16 @@ switch ($prices) {
     $fbets0= $row0['amount'];
     $winamount0= ($fbets0-(5/100)*$fbets0)*9;
     echo $winner0;
-    $addwin0="UPDATE users SET balance= balance +$winamount0 WHERE username=$winner0";
+    $addwin0="UPDATE dbo.users SET balance= balance +$winamount0 WHERE username=$winner0";
     $conn->query($addwin0);
-    $addwin0="UPDATE saprebetting SET res='success' WHERE username=$winner0 AND period=$period AND ans='$prices'";
+    $addwin0="UPDATE dbo.saprebetting SET res='success' WHERE username=$winner0 AND period=$period AND ans='$prices'";
     $conn->query($addwin0);
    
  
     }
     break;
   case "5":
-    $bet0="SELECT username,amount FROM saprebetting WHERE status='pending' AND ans=5";
+    $bet0="SELECT username,amount FROM dbo.saprebetting WHERE status='pending' AND ans=5";
     $betres0=$conn->query($bet0);
     while($row0 = mysqli_fetch_array($betres0)){
  
@@ -224,16 +244,16 @@ switch ($prices) {
     $fbets0= $row0['amount'];
     $winamount0= ($fbets0-(5/100)*$fbets0)*9;
     echo $winner0;
-    $addwin0="UPDATE users SET balance= balance +$winamount0 WHERE username=$winner0";
+    $addwin0="UPDATE dbo.users SET balance= balance +$winamount0 WHERE username=$winner0";
     $conn->query($addwin0);
-    $addwin0="UPDATE saprebetting SET res='success' WHERE username=$winner0 AND period=$period AND ans='$prices'";
+    $addwin0="UPDATE dbo.saprebetting SET res='success' WHERE username=$winner0 AND period=$period AND ans='$prices'";
     $conn->query($addwin0);
   
  
     }
     break;
   case "6":
-    $bet0="SELECT username,amount FROM saprebetting WHERE status='pending' AND ans=6";
+    $bet0="SELECT username,amount FROM dbo.saprebetting WHERE status='pending' AND ans=6";
     $betres0=$conn->query($bet0);
     while($row0 = mysqli_fetch_array($betres0)){
  
@@ -241,15 +261,15 @@ switch ($prices) {
     $fbets0= $row0['amount'];
     $winamount0= ($fbets0-(5/100)*$fbets0)*9;
     echo $winner0;
-    $addwin0="UPDATE users SET balance= balance +$winamount0 WHERE username=$winner0";
+    $addwin0="UPDATE dbo.users SET balance= balance +$winamount0 WHERE username=$winner0";
     $conn->query($addwin0);
-    $addwin0="UPDATE saprebetting SET res='success' WHERE username=$winner0 AND period=$period AND ans='$prices'";
+    $addwin0="UPDATE dbo.saprebetting SET res='success' WHERE username=$winner0 AND period=$period AND ans='$prices'";
     $conn->query($addwin0);
    
     }
     break;
   case "7":
-    $bet0="SELECT username,amount FROM saprebetting WHERE status='pending' AND ans=7";
+    $bet0="SELECT username,amount FROM dbo.saprebetting WHERE status='pending' AND ans=7";
     $betres0=$conn->query($bet0);
     while($row0 = mysqli_fetch_array($betres0)){
  
@@ -257,16 +277,16 @@ switch ($prices) {
     $fbets0= $row0['amount'];
     $winamount0= ($fbets0-(5/100)*$fbets0)*9;
     echo $winner0;
-    $addwin0="UPDATE users SET balance= balance +$winamount0 WHERE username=$winner0";
+    $addwin0="UPDATE dbo.users SET balance= balance +$winamount0 WHERE username=$winner0";
     $conn->query($addwin0);
-    $addwin0="UPDATE saprebetting SET res='success' WHERE username=$winner0 AND period=$period AND ans='$prices'";
+    $addwin0="UPDATE dbo.saprebetting SET res='success' WHERE username=$winner0 AND period=$period AND ans='$prices'";
     $conn->query($addwin0);
   
  
     }
     break;
   case "8":
-    $bet0="SELECT username,amount FROM saprebetting WHERE status='pending' AND ans=8";
+    $bet0="SELECT username,amount FROM dbo.saprebetting WHERE status='pending' AND ans=8";
     $betres0=$conn->query($bet0);
     while($row0 = mysqli_fetch_array($betres0)){
  
@@ -274,16 +294,16 @@ switch ($prices) {
     $fbets0= $row0['amount'];
     $winamount0= ($fbets0-(5/100)*$fbets0)*9;
     echo $winner0;
-    $addwin0="UPDATE users SET balance= balance +$winamount0 WHERE username=$winner0";
+    $addwin0="UPDATE dbo.users SET balance= balance +$winamount0 WHERE username=$winner0";
     $conn->query($addwin0);
-    $addwin0="UPDATE saprebetting SET res='success' WHERE username=$winner0 AND period=$period AND ans='$prices'";
+    $addwin0="UPDATE dbo.saprebetting SET res='success' WHERE username=$winner0 AND period=$period AND ans='$prices'";
     $conn->query($addwin0);
     
  
     }
     break;
   case "9":
-    $bet0="SELECT username,amount FROM saprebetting WHERE status='pending' AND ans=9";
+    $bet0="SELECT username,amount FROM dbo.saprebetting WHERE status='pending' AND ans=9";
     $betres0=$conn->query($bet0);
     while($row0 = mysqli_fetch_array($betres0)){
  
@@ -291,9 +311,9 @@ switch ($prices) {
     $fbets0= $row0['amount'];
     $winamount0= ($fbets0-(5/100)*$fbets0)*9;
     echo $winner0;
-    $addwin0="UPDATE users SET balance= balance +$winamount0 WHERE username=$winner0";
+    $addwin0="UPDATE dbo.users SET balance= balance +$winamount0 WHERE username=$winner0";
     $conn->query($addwin0);
-    $addwin0="UPDATE saprebetting SET res='success' WHERE username=$winner0 AND period=$period AND ans='$prices'";
+    $addwin0="UPDATE dbo.saprebetting SET res='success' WHERE username=$winner0 AND period=$period AND ans='$prices'";
     $conn->query($addwin0);
    
  
@@ -301,16 +321,16 @@ switch ($prices) {
     break;
   case "0":
     echo"zero";
-    $bet0="SELECT username,amount FROM saprebetting WHERE status='pending' AND ans='0'";
+    $bet0="SELECT username,amount FROM dbo.saprebetting WHERE status='pending' AND ans='0'";
     $betres0=$conn->query($bet0);
     while($row0 = mysqli_fetch_array($betres0)){
  
     $winner0=$row0['username'];
     $fbets0= $row0['amount'];
     $winamount0= ($fbets0-(5/100)*$fbets0)*9;
-    $addwin0="UPDATE users SET balance= balance+$winamount0 WHERE username=$winner0";
+    $addwin0="UPDATE dbo.users SET balance= balance+$winamount0 WHERE username=$winner0";
     $conn->query($addwin0);
-    $addwin0="UPDATE saprebetting SET res='success' WHERE username=$winner0 AND period=$period AND ans='$prices'";
+    $addwin0="UPDATE dbo.saprebetting SET res='success' WHERE username=$winner0 AND period=$period AND ans='$prices'";
     $conn->query($addwin0);
 
  
@@ -326,15 +346,15 @@ switch ($prices) {
 if( $res=="red" && $res1=="" ){
     
 echo"red";
-$bet2="SELECT username,amount FROM saprebetting WHERE status='pending' AND ans='$res'";
+$bet2="SELECT username,amount FROM dbo.saprebetting WHERE status='pending' AND ans='$res'";
 $betres2=$conn->query($bet2);
 while($row2 = mysqli_fetch_array($betres2)){
 $winner2=$row2['username'];   
 $fbets2= $row2['amount'];
 $winamount2= ($fbets2-(5/100)*$fbets2)*2;
-$addwin2="UPDATE users SET balance= balance+$winamount2 WHERE username=$winner2";
+$addwin2="UPDATE dbo.users SET balance= balance+$winamount2 WHERE username=$winner2";
 $conn->query($addwin2);
-$addwin12="UPDATE saprebetting SET res='success',price=$num,number=$prices,color='$res',color2='$res1' WHERE username=$winner2 AND period=$period AND ans='$res'";
+$addwin12="UPDATE dbo.saprebetting SET res='success',price=$num,number=$prices,color='$res',color2='$res1' WHERE username=$winner2 AND period=$period AND ans='$res'";
 $conn->query($addwin12);
    
 }
@@ -344,16 +364,16 @@ $conn->query($addwin12);
 }elseif( $res=="green" && $res1=="" ){
 
 echo"green"; 
-$bet3="SELECT username,amount FROM saprebetting WHERE status='pending' AND ans='$res'";
+$bet3="SELECT username,amount FROM dbo.saprebetting WHERE status='pending' AND ans='$res'";
 $betres3=$conn->query($bet3);
 while($row3 = mysqli_fetch_array($betres3)){
     
 $winner3=$row3['username'];
 $fbets3=$row3['amount']; 
 $winamount3= ($fbets3-(5/100)*$fbets3)*2;
-$addwin3="UPDATE users SET balance= balance+$winamount3 WHERE username=$winner3";
+$addwin3="UPDATE dbo.users SET balance= balance+$winamount3 WHERE username=$winner3";
 $conn->query($addwin3);
-$addwin13="UPDATE saprebetting SET res='success',price=$num,number=$prices,color='$res',color2='$res1' WHERE username=$winner3 AND period=$period AND ans='$res'";
+$addwin13="UPDATE dbo.saprebetting SET res='success',price=$num,number=$prices,color='$res',color2='$res1' WHERE username=$winner3 AND period=$period AND ans='$res'";
 $conn->query($addwin13);
    
 
@@ -363,23 +383,23 @@ $conn->query($addwin13);
 if( $res=="green" && $res1=="violet"){
 
 echo"green vio";
-$bet4="SELECT username,amount FROM saprebetting WHERE status='pending' AND ans='$res'";
+$bet4="SELECT username,amount FROM dbo.saprebetting WHERE status='pending' AND ans='$res'";
 $betres4=$conn->query($bet4);
 while($row4 = mysqli_fetch_array($betres4)){
     $winner4=$row4['username'];
 
 $fbets4=$row4['amount']; 
 $winamount4= ($fbets4-(5/100)*$fbets4)*1.5;
-$addwin4="UPDATE users SET balance= balance +$winamount4 WHERE username=$winner4";
+$addwin4="UPDATE dbo.users SET balance= balance +$winamount4 WHERE username=$winner4";
 $conn->query($addwin4);
-$addwin14="UPDATE saprebetting SET res='success',price=$num,number=$prices,color='$res',color2='$res1' WHERE username=$winner4 AND period=$period AND ans='$res'";
+$addwin14="UPDATE dbo.saprebetting SET res='success',price=$num,number=$prices,color='$res',color2='$res1' WHERE username=$winner4 AND period=$period AND ans='$res'";
 $conn->query($addwin14);
    
 
 }
 
 
-$bet1="SELECT username,amount FROM saprebetting WHERE status='pending' AND ans='violet'";
+$bet1="SELECT username,amount FROM dbo.saprebetting WHERE status='pending' AND ans='violet'";
 $betres1=$conn->query($bet1);
 while($row1 = mysqli_fetch_array($betres1)){
     $winner1=$row1['username'];
@@ -388,9 +408,9 @@ $fbets1= $row1['amount'];
 $winamount1= ($fbets1-(5/100)*$fbets1)*3;
 
 
-$addwin1="UPDATE users SET balance= balance +$winamount1 WHERE username=$winner1";
+$addwin1="UPDATE dbo.users SET balance= balance +$winamount1 WHERE username=$winner1";
 $conn->query($addwin1);
-$addwin11="UPDATE saprebetting SET res='success',price=$num,number=$prices,color='$res',color2='$res1' WHERE username=$winner1 AND period=$period AND ans='violet'";
+$addwin11="UPDATE dbo.saprebetting SET res='success',price=$num,number=$prices,color='$res',color2='$res1' WHERE username=$winner1 AND period=$period AND ans='violet'";
 $conn->query($addwin11);
     
 
@@ -400,22 +420,22 @@ $conn->query($addwin11);
 }elseif($res=="red" && $res1=="violet"){
  
 echo"red vio";
-$bet5="SELECT username,amount FROM saprebetting WHERE status='pending' AND ans='$res'";
+$bet5="SELECT username,amount FROM dbo.saprebetting WHERE status='pending' AND ans='$res'";
 $betres5=$conn->query($bet5);
 while($row5 = mysqli_fetch_array($betres5)){
   $winner5=$row5['username'];
 
 $fbets5=$row5['amount'] ;
 $winamount5= ($fbets5-((5/100)*$fbets5))*1.5;
-$addwin5="UPDATE users SET balance= balance+$winamount5 WHERE username='$winner5'";
+$addwin5="UPDATE dbo.users SET balance= balance+$winamount5 WHERE username='$winner5'";
 $conn->query($addwin5);
-$addwin15="UPDATE saprebetting SET res='success',price=$num,number=$prices,color='$res',color2='$res1' WHERE username=$winner5 AND period=$period AND ans='$res'";
+$addwin15="UPDATE dbo.saprebetting SET res='success',price=$num,number=$prices,color='$res',color2='$res1' WHERE username=$winner5 AND period=$period AND ans='$res'";
 $conn->query($addwin15);
   
       
 }
 
-$bet12="SELECT username,amount FROM saprebetting WHERE status='pending' AND ans='violet'";
+$bet12="SELECT username,amount FROM dbo.saprebetting WHERE status='pending' AND ans='violet'";
 $betres12=$conn->query($bet12);
 while($row12 = mysqli_fetch_array($betres12)){
 $winner12=$row12['username'];
@@ -423,9 +443,9 @@ $winner12=$row12['username'];
 $fbets12=$row12['amount'] ;
 $winamount12= ($fbets12-(5/100)*$fbets12)*3;
 
-$addwin12="UPDATE users SET balance= balance+$winamount12 WHERE username=$winner12";
+$addwin12="UPDATE dbo.users SET balance= balance+$winamount12 WHERE username=$winner12";
 $conn->query($addwin12);
-$addwin112="UPDATE saprebetting SET res='success',price=$num,number=$prices,color='$res',color2='$res1' WHERE username=$winner12 AND period=$period AND ans='violet'";
+$addwin112="UPDATE dbo.saprebetting SET res='success',price=$num,number=$prices,color='$res',color2='$res1' WHERE username=$winner12 AND period=$period AND ans='violet'";
 $conn->query($addwin112);
    
 
@@ -443,7 +463,7 @@ $conn->query($addwin112);
 
 
 
-$rec="INSERT INTO saprebetrec (period,ans,num,clo,res1) VALUES ($period,$ans,$num,'$res','$res1')";
+$rec="INSERT INTO dbo.saprebetrec (period,ans,num,clo,res1) VALUES ($period,$ans,$num,'$res','$res1')";
 $conn->query($rec);
 
 }
@@ -470,32 +490,32 @@ $conn->query($rec);
 
 
 
-$suc="UPDATE saprebetting SET status='sucessful' WHERE status='pending'";
+$suc="UPDATE dbo.saprebetting SET status='sucessful' WHERE status='pending'";
 $conn->query($suc);
 
-$checkperiod_Query=mysqli_query($conn,"select * from `sapreperiod` order by id desc limit 1");
+$checkperiod_Query=mysqli_query($conn,"select * from sapreperiod order by id desc limit 1");
 $periodRow=mysqli_num_rows($checkperiod_Query);
 $periodidRow=mysqli_fetch_array($checkperiod_Query);
 
 
 if($lastperiodid==$periodidRow['period'])
 {
-  $truncateQuery=mysqli_query($conn,"TRUNCATE TABLE `sapreperiod`");
-  $truncateResultQuery=mysqli_query($conn,"TRUNCATE TABLE `sapreperiod`");
-    $sql19=mysqli_query($conn,"INSERT INTO `sapreperiod` (`dbo.period`,`nxt`) VALUES ('".$firstperiodid."','11')");  
+  $truncateQuery=mysqli_query($conn,"TRUNCATE TABLE sapreperiod");
+  $truncateResultQuery=mysqli_query($conn,"TRUNCATE TABLE sapreperiod");
+    $sql19=mysqli_query($conn,"INSERT INTO dbo.sapreperiod (dbo.period,nxt) VALUES ('".$firstperiodid."','11')");  
 }elseif($periodRow=='' OR $periodRow=='0')
 {
-$sql19=mysqli_query($conn,"INSERT INTO `sapreperiod` (`dbo.period`,`nxt`) VALUES ('".$firstperiodid."','11')");
+$sql19=mysqli_query($conn,"INSERT INTO dbo.sapreperiod (dbo.period,nxt) VALUES ('".$firstperiodid."','11')");
 	
 
 }else 
 {
-$sql4 = "UPDATE sapreperiod SET period= period +'1',nxt='11' WHERE id='1'";
+$sql4 = "UPDATE dbo.sapreperiod SET period= period +'1',nxt='11' WHERE id='1'";
 $conn->query($sql4);
 	}
 
-$sql1="DELETE FROM saprebet WHERE id='1'";
-$sql = "INSERT INTO saprebet (id) VALUES ('1')";
+$sql1="DELETE FROM dbo.saprebet WHERE id='1'";
+$sql = "INSERT INTO dbo.saprebet (id) VALUES ('1')";
                 
 $conn->query($sql1);
  

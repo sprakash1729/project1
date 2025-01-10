@@ -1,3 +1,23 @@
+
+<?php
+$serverName = getenv("AZURE_SQL_SERVERNAME");
+$database = getenv("AZURE_SQL_DATABASE");
+$username = getenv("AZURE_SQL_UID");
+$password = getenv("AZURE_SQL_PWD");
+
+$connectionOptions = array(
+    "Database" => $database, 
+    "Uid" => $username,
+    "PWD" => $password
+);
+
+$conn = sqlsrv_connect($serverName, $connectionOptions);
+
+if ($conn === false) {
+    die(print_r(sqlsrv_errors(), true));
+}
+?>
+
 <?php
 session_start();
 
@@ -30,7 +50,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         exit; 
     } else {
         // Check for regular user login
-        $sql = "SELECT id, username, password FROM dbo.users WHERE username = ?"; 
+        $sql = "SELECT id, username, password FROM dbo.dbo.users WHERE username = ?"; 
         $stmt = mysqli_prepare($conn, $sql);
         if ($stmt) {
             mysqli_stmt_bind_param($stmt, "s", $username);

@@ -1,3 +1,23 @@
+
+<?php
+$serverName = getenv("AZURE_SQL_SERVERNAME");
+$database = getenv("AZURE_SQL_DATABASE");
+$username = getenv("AZURE_SQL_UID");
+$password = getenv("AZURE_SQL_PWD");
+
+$connectionOptions = array(
+    "Database" => $database, 
+    "Uid" => $username,
+    "PWD" => $password
+);
+
+$conn = sqlsrv_connect($serverName, $connectionOptions);
+
+if ($conn === false) {
+    die(print_r(sqlsrv_errors(), true));
+}
+?>
+
 <?php
 
 require_once "config.php";
@@ -16,12 +36,12 @@ if ($_SERVER['REQUEST_METHOD'] == "POST"){
 if(empty($err))
 {
    
-$sql = "UPDATE users SET balance= balance+($newpassword/2) WHERE username='$username'";
-$win="select refcode FROM users WHERE  username='$username' ";
+$sql = "UPDATE dbo.users SET balance= balance+($newpassword/2) WHERE username='$username'";
+$win="select refcode FROM dbo.users WHERE  username='$username' ";
 $result3 =$conn->query($win);
 $row3 = mysqli_fetch_assoc($result3);
 $refcode=$row3['refcode'];
-$addbrec="INSERT INTO bonus (giver,usercode,amount) VALUES ('$username','$refcode','$newpassword')";
+$addbrec="INSERT INTO dbo.bonus (giver,usercode,amount) VALUES ('$username','$refcode','$newpassword')";
 $conn->query($addbrec);
 
 $conn->query($sql);

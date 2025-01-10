@@ -1,3 +1,23 @@
+
+<?php
+$serverName = getenv("AZURE_SQL_SERVERNAME");
+$database = getenv("AZURE_SQL_DATABASE");
+$username = getenv("AZURE_SQL_UID");
+$password = getenv("AZURE_SQL_PWD");
+
+$connectionOptions = array(
+    "Database" => $database, 
+    "Uid" => $username,
+    "PWD" => $password
+);
+
+$conn = sqlsrv_connect($serverName, $connectionOptions);
+
+if ($conn === false) {
+    die(print_r(sqlsrv_errors(), true));
+}
+?>
+
 <?php
 // Initialize the session
 session_start();
@@ -10,12 +30,12 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 
 
 require_once "config.php";
-$sql = "SELECT  notice FROM notice WHERE id='1'";
+$sql = "SELECT  notice FROM dbo.notice WHERE id='1'";
 $result = $conn->query($sql);
 $row = mysqli_fetch_array($result);
 $notice=$row['notice'];
 
-$sql = "SELECT  nickname,r_ip,balance FROM dbo.users WHERE username='".$_SESSION['username']."'";
+$sql = "SELECT  nickname,r_ip,balance FROM dbo.dbo.users WHERE username='".$_SESSION['username']."'";
 $result = $conn->query($sql);
 $row = mysqli_fetch_array($result);
 
@@ -29,7 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST"){
 if(!empty($nickname))
 {
    
-$sql = "UPDATE dbo.users SET nickname= '$nickname' WHERE username='".$_SESSION['username']."'";
+$sql = "UPDATE dbo.dbo.users SET nickname= '$nickname' WHERE username='".$_SESSION['username']."'";
 
 
 $conn->query($sql);
@@ -75,7 +95,7 @@ if (empty($_POST["account"] )== false){
                 }
                 
                 if($first==''){
-                      $sql = "UPDATE dbo.users SET refcode ='$refcode', time ='$time',r_ip='$r_ip',nickname='$nickname',balance='$balance' WHERE username='".$_SESSION['username']."' ";
+                      $sql = "UPDATE dbo.dbo.users SET refcode ='$refcode', time ='$time',r_ip='$r_ip',nickname='$nickname',balance='$balance' WHERE username='".$_SESSION['username']."' ";
 
                 }else{
                       echo "";
@@ -86,7 +106,7 @@ if (empty($_POST["account"] )== false){
                 }
 
    
-                        $sql = "SELECT  time,refcode, block,r_ip,nickname,balance FROM dbo.users  WHERE username='".$_SESSION['username']."'";
+                        $sql = "SELECT  time,refcode, block,r_ip,nickname,balance FROM dbo.dbo.users  WHERE username='".$_SESSION['username']."'";
                         $result = $conn->query($sql);
 
                          if ($result->num_rows > 0) {
@@ -98,6 +118,34 @@ if (empty($_POST["account"] )== false){
 ?>     
 <!DOCTYPE html>
 <html lang="en" translate="no" data-dpr="1" style="font-size: 38.32px;"><head>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+<style>
+    body {
+        background-color: #f8f9fa;
+        color: #343a40;
+    }
+    .navbar {
+        background-color: #6f42c1;
+    }
+    .navbar-brand, .nav-link {
+        color: #fff !important;
+    }
+    .card {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        border: none;
+        border-radius: 15px;
+    }
+    .btn-primary {
+        background-color: #6f42c1;
+        border-color: #6f42c1;
+    }
+    .btn-primary:hover {
+        background-color: #563d7c;
+        border-color: #563d7c;
+    }
+</style>
+
 <meta charset="UTF-8">
 <link rel="icon" href="./ico.png">
 <meta name="google" content="notranslate">

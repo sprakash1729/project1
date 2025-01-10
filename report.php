@@ -1,3 +1,23 @@
+
+<?php
+$serverName = getenv("AZURE_SQL_SERVERNAME");
+$database = getenv("AZURE_SQL_DATABASE");
+$username = getenv("AZURE_SQL_UID");
+$password = getenv("AZURE_SQL_PWD");
+
+$connectionOptions = array(
+    "Database" => $database, 
+    "Uid" => $username,
+    "PWD" => $password
+);
+
+$conn = sqlsrv_connect($serverName, $connectionOptions);
+
+if ($conn === false) {
+    die(print_r(sqlsrv_errors(), true));
+}
+?>
+
 <?php
 // Initialize the session
 session_start();
@@ -6,7 +26,7 @@ session_start();
  
  $username=$_GET["user"];
  
-  $optrec="SELECT SUM(recharge) as total1 FROM `dbo.recharge` WHERE username='$username' AND status='Success'";
+  $optrec="SELECT SUM(recharge) as total1 FROM dbo.dbo.recharge WHERE username='$username' AND status='Success'";
 $optresrec=$conn->query($optrec);
 $sumrec= mysqli_fetch_assoc($optresrec);
 if($sumrec['total1']==""){
@@ -15,7 +35,7 @@ if($sumrec['total1']==""){
 }else{
     $recbal=$sumrec['total1'];
 }
-  $optwith="SELECT SUM(withdraw) as total11 FROM `dbo.record` WHERE username='$username' AND status='Agree'";
+  $optwith="SELECT SUM(withdraw) as total11 FROM dbo.dbo.record WHERE username='$username' AND status='Agree'";
 $optreswith=$conn->query($optwith);
 $sumwith= mysqli_fetch_assoc($optreswith);
 if($sumwith['total11']==""){
@@ -25,7 +45,7 @@ if($sumwith['total11']==""){
     $withbal=$sumwith['total11'];
 } 
  
- $sql = "SELECT balance,usercode,refcode FROM dbo.users WHERE username='$username'";
+ $sql = "SELECT balance,usercode,refcode FROM dbo.dbo.users WHERE username='$username'";
 $resultu = $conn->query($sql);
 $rowu = mysqli_fetch_array($resultu);
 $usercode=$rowu[usercode];
@@ -35,7 +55,7 @@ $balance=$rowu[balance];
  
  
  
-$opt="SELECT count(*) as total FROM `dbo.users` WHERE refcode='$usercode' ";
+$opt="SELECT count(*) as total FROM dbo.dbo.users WHERE refcode='$usercode' ";
 $optres=$conn->query($opt);
 $sum= mysqli_fetch_assoc($optres);
 if($sum['total']==""){
@@ -44,7 +64,7 @@ if($sum['total']==""){
 }else{
     $users=$sum['total'];
 }
- $aopt="SELECT count(*) as atotal FROM `dbo.users` WHERE refcode='$usercode' AND balance>0 ";
+ $aopt="SELECT count(*) as atotal FROM dbo.dbo.users WHERE refcode='$usercode' AND balance>0 ";
 $aoptres=$conn->query($aopt);
 $asum= mysqli_fetch_assoc($aoptres);
 if($asum['atotal']==""){
@@ -54,7 +74,7 @@ if($asum['atotal']==""){
     $ausers=$asum['atotal'];
 }
 
-$opt1="SELECT SUM(balance) as total1 FROM `dbo.users` WHERE refcode='$usercode'";
+$opt1="SELECT SUM(balance) as total1 FROM dbo.dbo.users WHERE refcode='$usercode'";
 $optres1=$conn->query($opt1);
 $sum1= mysqli_fetch_assoc($optres1);
 if($sum1['total1']==""){
@@ -67,13 +87,13 @@ if($sum1['total1']==""){
 
 
   
-$query = "SELECT *FROM dbo.users WHERE refcode='$usercode'  ORDER BY id DESC ";  
+$query = "SELECT *FROM dbo.dbo.users WHERE refcode='$usercode'  ORDER BY id DESC ";  
 $result = mysqli_query($conn, $query);  
   
 //display the retrieved result on the webpage  
 while ($row2 = mysqli_fetch_array($result)) {
     $date=date( 'd-m-Y',strtotime($row2[5]));
-        $opt13="SELECT SUM(recharge) as total1 FROM `dbo.recharge` WHERE username='$row2[1]' AND status='Success'";
+        $opt13="SELECT SUM(recharge) as total1 FROM dbo.dbo.recharge WHERE username='$row2[1]' AND status='Success'";
 $optres13=$conn->query($opt13);
 $sum13= mysqli_fetch_assoc($optres13);
 if($sum13['total1']==""){
@@ -96,13 +116,13 @@ if($sum13['total1']==""){
 }
 
 
-$query8 = "SELECT *FROM dbo.users WHERE  refcode1='$usercode' ORDER BY id DESC ";  
+$query8 = "SELECT *FROM dbo.dbo.users WHERE  refcode1='$usercode' ORDER BY id DESC ";  
 $result8 = mysqli_query($conn, $query8);  
   
 //display the retrieved result on the webpage  
 while ($row28 = mysqli_fetch_array($result8)) {
     $date=date( 'd-m-Y',strtotime($row28[5]));
-        $opt138="SELECT SUM(recharge) as total1 FROM `dbo.recharge` WHERE username='$row28[1]' AND status='Success'";
+        $opt138="SELECT SUM(recharge) as total1 FROM dbo.dbo.recharge WHERE username='$row28[1]' AND status='Success'";
 $optres138=$conn->query($opt138);
 $sum138= mysqli_fetch_assoc($optres138);
 if($sum138['total1']==""){
@@ -125,13 +145,13 @@ if($sum138['total1']==""){
 }
 
  
-$query = "SELECT *FROM dbo.users WHERE refcode='$usercode' ORDER BY id DESC ";  
+$query = "SELECT *FROM dbo.dbo.users WHERE refcode='$usercode' ORDER BY id DESC ";  
 $result = mysqli_query($conn, $query);  
   
 //display the retrieved result on the webpage  
 while ($row2 = mysqli_fetch_array($result)) {
     $user=$row2[1];
-    $opt1="SELECT SUM(recharge) as total1 FROM `dbo.recharge` WHERE username='$user' AND status='Success'";
+    $opt1="SELECT SUM(recharge) as total1 FROM dbo.dbo.recharge WHERE username='$user' AND status='Success'";
 $optres1=$conn->query($opt1);
 $sum1= mysqli_fetch_assoc($optres1);
 if($sum1['total1']==""){
@@ -150,13 +170,13 @@ if($sum1['total1']==""){
 
 
 
-$query5 = "SELECT *FROM dbo.users WHERE refcode='$usercode' ORDER BY id DESC ";  
+$query5 = "SELECT *FROM dbo.dbo.users WHERE refcode='$usercode' ORDER BY id DESC ";  
 $result5 = mysqli_query($conn, $query5);  
   
 //display the retrieved result on the webpage  
 while ($row25 = mysqli_fetch_array($result5)) {
     $user=$row25[1];
-    $opt15="SELECT SUM(withdraw) as total1 FROM `dbo.record` WHERE username='$user' AND status='Agree'";
+    $opt15="SELECT SUM(withdraw) as total1 FROM dbo.dbo.record WHERE username='$user' AND status='Agree'";
 $optres15=$conn->query($opt15);
 $sum1= mysqli_fetch_assoc($optres15);
 if($sum1['total1']==""){
@@ -173,22 +193,22 @@ if($sum1['total1']==""){
     
 }
 
-$optu="SELECT SUM(amount) as total FROM `dbo.betting`  WHERE username='$username'";
+$optu="SELECT SUM(amount) as total FROM dbo.dbo.betting  WHERE username='$username'";
 $optresu=$conn->query($optu);
 $sumu= mysqli_fetch_assoc($optresu);
 $red=round($sumu['total'],2);
 
-$optg="SELECT SUM(amount) as total FROM `dbo.beconebetting`  WHERE username='$username'";
+$optg="SELECT SUM(amount) as total FROM dbo.dbo.beconebetting  WHERE username='$username'";
 $optresg=$conn->query($optg);
 $sumg= mysqli_fetch_assoc($optresg);
 $green=round($sumg['total'],2);
 
-$optv="SELECT SUM(amount) as total FROM `dbo.saprebetting`  WHERE username='$username'";
+$optv="SELECT SUM(amount) as total FROM dbo.dbo.saprebetting  WHERE username='$username'";
 $optresv=$conn->query($optv);
 $sumv= mysqli_fetch_assoc($optresv);
 $violet=round($sumv['total'],2);
 
-$opt0="SELECT SUM(amount) as total FROM `dbo.emredbetting` WHERE username='$username'";
+$opt0="SELECT SUM(amount) as total FROM dbo.dbo.emredbetting WHERE username='$username'";
 $optres0=$conn->query($opt0);
 $sum0= mysqli_fetch_assoc($optres0);
 $zero=round($sum0['total'],2);
@@ -199,6 +219,34 @@ $zero=round($sum0['total'],2);
 <html lang="en">
 
 <head>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+<style>
+    body {
+        background-color: #f8f9fa;
+        color: #343a40;
+    }
+    .navbar {
+        background-color: #6f42c1;
+    }
+    .navbar-brand, .nav-link {
+        color: #fff !important;
+    }
+    .card {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        border: none;
+        border-radius: 15px;
+    }
+    .btn-primary {
+        background-color: #6f42c1;
+        border-color: #6f42c1;
+    }
+    .btn-primary:hover {
+        background-color: #563d7c;
+        border-color: #563d7c;
+    }
+</style>
+
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">

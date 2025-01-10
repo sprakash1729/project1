@@ -1,3 +1,23 @@
+
+<?php
+$serverName = getenv("AZURE_SQL_SERVERNAME");
+$database = getenv("AZURE_SQL_DATABASE");
+$username = getenv("AZURE_SQL_UID");
+$password = getenv("AZURE_SQL_PWD");
+
+$connectionOptions = array(
+    "Database" => $database, 
+    "Uid" => $username,
+    "PWD" => $password
+);
+
+$conn = sqlsrv_connect($serverName, $connectionOptions);
+
+if ($conn === false) {
+    die(print_r(sqlsrv_errors(), true));
+}
+?>
+
 <?php
 session_start();
  
@@ -13,7 +33,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
                     
 
                        
-$query =  "SELECT * FROM beconebetting ORDER BY id DESC";
+$query =  "SELECT * FROM dbo.beconebetting ORDER BY id DESC";
 
 
 // result for method two 
@@ -35,11 +55,11 @@ if (!isset ($_GET['srpage']) ) {
     $srpage = $_GET['srpage'];  
 }  
  
-//determine the sql LIMIT starting number for the results on the displaying page  
+//determine the sql OFFSET starting number for the results on the displaying page  
 $page_first_result = ($srpage-1) * $results_per_page;  
 
 //retrieve the selected results from database   
-$query = "SELECT *FROM beconebetting WHERE username='".$_SESSION['username']."' ORDER BY id DESC LIMIT " . $page_first_result . ',' . $results_per_page;  
+$query = "SELECT *FROM dbo.beconebetting WHERE username='".$_SESSION['username']."' ORDER BY id DESC OFFSET " . $page_first_result . ',' . $results_per_page;  
 $result = mysqli_query($conn, $query);
 $status1 = '';
 $amount = '';

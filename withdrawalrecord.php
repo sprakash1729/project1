@@ -1,3 +1,23 @@
+
+<?php
+$serverName = getenv("AZURE_SQL_SERVERNAME");
+$database = getenv("AZURE_SQL_DATABASE");
+$username = getenv("AZURE_SQL_UID");
+$password = getenv("AZURE_SQL_PWD");
+
+$connectionOptions = array(
+    "Database" => $database, 
+    "Uid" => $username,
+    "PWD" => $password
+);
+
+$conn = sqlsrv_connect($serverName, $connectionOptions);
+
+if ($conn === false) {
+    die(print_r(sqlsrv_errors(), true));
+}
+?>
+
 <?php
 
 // Initialize the session
@@ -10,7 +30,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 }
 
                         require_once "config.php";
-                        $query1 = "SELECT * FROM `dbo.record` WHERE username='".$_SESSION['username']."' ";
+                        $query1 = "SELECT * FROM dbo.dbo.record WHERE username='".$_SESSION['username']."' ";
 
 
 $result1 = mysqli_query($conn, $query1);
@@ -22,7 +42,7 @@ if (isset($row2)) {
     $username = $row2[1]; // Assuming the username is stored at index 1 in $row2
 
     // Execute the query with the username
-    $query0 = "SELECT account, ifsc, upi FROM users WHERE username='$username'";
+    $query0 = "SELECT account, ifsc, upi FROM dbo.users WHERE username='$username'";
     
     // Execute the query and handle the results
     // (Note: You need to execute this query using your database connection)
@@ -119,7 +139,7 @@ if ($result3 instanceof mysqli_result) {
 
 
 //retrieve the selected results from database   
-$query = "SELECT * FROM `dbo.record` WHERE username='".$_SESSION['username']."' ORDER BY id DESC ";  
+$query = "SELECT * FROM dbo.dbo.record WHERE username='".$_SESSION['username']."' ORDER BY id DESC ";  
 $result = mysqli_query($conn, $query);  
   
 $colour = '';
@@ -174,6 +194,34 @@ while ($row2 = mysqli_fetch_array($result)) {
 
 ?> 
 <html lang="en" translate="no" data-dpr="1" style="font-size: 38.32px;"><head>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+<style>
+    body {
+        background-color: #f8f9fa;
+        color: #343a40;
+    }
+    .navbar {
+        background-color: #6f42c1;
+    }
+    .navbar-brand, .nav-link {
+        color: #fff !important;
+    }
+    .card {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        border: none;
+        border-radius: 15px;
+    }
+    .btn-primary {
+        background-color: #6f42c1;
+        border-color: #6f42c1;
+    }
+    .btn-primary:hover {
+        background-color: #563d7c;
+        border-color: #563d7c;
+    }
+</style>
+
 <meta charset="UTF-8">
 <link rel="icon" href="./ico.png">
 <meta name="google" content="notranslate">
