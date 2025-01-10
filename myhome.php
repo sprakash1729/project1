@@ -3,7 +3,7 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
 <style>
     body {
-        background-color:rgba(238, 237, 138, 0.8);
+        background-color:rgba(251, 251, 248, 0.8);
         color: #343a40;
     }
     .navbar {
