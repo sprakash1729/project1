@@ -1,11 +1,42 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta http-equiv="refresh" content="0;url='/myhome.php">
-<title>91 Club</title>
-<link rel="icon" href="./ico.png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="refresh" content="2;url='/myhome.php'">
+    <title>Numbers Club</title>
+    <link rel="icon" href="./ico.png">
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, #6f42c1, #007bff);
+            color: #fff;
+            font-family: Arial, sans-serif;
+        }
+        .loading-container {
+            text-align: center;
+        }
+        .loading-spinner {
+            margin: 20px 0;
+        }
+    </style>
 </head>
 <body>
+    <div class="loading-container">
+        <h1>Welcome to Numbers Club</h1>
+        <p>Redirecting to your dashboard...</p>
+        <div class="spinner-border text-light loading-spinner" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+    <!-- Bootstrap 5 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
