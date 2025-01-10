@@ -1,16 +1,16 @@
 <?php
 // SQL Server connection configuration
-$serverName = "tcp:your_server.database.windows.net,1433"; // Replace with your server
+$serverName = "tcp:gametrial.database.windows.net,1433"; // Replace with your server
 $connectionOptions = [
-    "Database" => "your_database", // Replace with your database name
-    "Uid" => "your_username", // Replace with your username
-    "PWD" => "your_password", // Replace with your password
+    "Database" => "gametraildb", // Replace with your database name
+    "Uid" => "gametrial_root", // Replace with your username
+    "PWD" => "Pass@123", // Replace with your password
     "Encrypt" => true,
     "TrustServerCertificate" => false
 ];
 
 // Establish the connection
-$conn = sqlsrv_connect($serverName, $connectionOptions);
+$conn = sqlsrv_connect($serverName, gametrial_rootconnectionOptions);
 
 // Check if the connection is successful
 if ($conn === false) {
