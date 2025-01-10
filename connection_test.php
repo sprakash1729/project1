@@ -10,7 +10,7 @@ $connectionOptions = [
 ];
 
 // Establish the connection
-$conn = sqlsrv_connect($serverName, gametrial_rootconnectionOptions);
+$conn = sqlsrv_connect($serverName, $connectionOptions);
 
 // Check if the connection is successful
 if ($conn === false) {
