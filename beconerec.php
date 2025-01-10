@@ -33,7 +33,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
                     
 
                        
-$query =  "SELECT * FROM dbo.beconebetting ORDER BY id DESC";
+$query =  "SELECT * FROM beconebetting ORDER BY id DESC";
 
 
 // result for method two 
@@ -59,7 +59,7 @@ if (!isset ($_GET['srpage']) ) {
 $page_first_result = ($srpage-1) * $results_per_page;  
 
 //retrieve the selected results from database   
-$query = "SELECT *FROM dbo.beconebetting WHERE username='".$_SESSION['username']."' ORDER BY id DESC OFFSET " . $page_first_result . ',' . $results_per_page;  
+$query = "SELECT *FROM beconebetting WHERE username='".$_SESSION['username']."' ORDER BY id DESC OFFSET " . $page_first_result . ',' . $results_per_page;  
 $result = mysqli_query($conn, $query);
 $status1 = '';
 $amount = '';

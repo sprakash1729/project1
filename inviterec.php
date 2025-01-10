@@ -48,20 +48,20 @@ if ($_SERVER['REQUEST_METHOD'] == "POST"){
 if(empty($err))
 {
    
-$sql = "SELECT usercode FROM dbo.users WHERE username='$username'";
+$sql = "SELECT usercode FROM users WHERE username='$username'";
 $result = $conn->query($sql);
 $row = mysqli_fetch_array($result);
 $usercode=$row[usercode];
 
 //retrieve the selected results from database   
-$query = "SELECT *FROM dbo.users WHERE refcode='$usercode' ORDER BY id DESC";  
+$query = "SELECT *FROM users WHERE refcode='$usercode' ORDER BY id DESC";  
 $result = mysqli_query($conn, $query);  
   
 //display the retrieved result on the webpage  
 while ($row2 = mysqli_fetch_array($result)) {
-    $opt="SELECT SUM(recharge) as total FROM dbo.dbo.recharge WHERE username='$row2[1]' AND status='successfull'";
+    $opt="SELECT SUM(recharge) as total FROM dbo.recharge WHERE username='$row2[1]' AND status='successfull'";
 $optres=$conn->query($opt);
-$query0 =  "SELECT  recharge FROM dbo.dbo.recharge  WHERE username='$row2[1]'ORDER BY id DESC";
+$query0 =  "SELECT  recharge FROM dbo.recharge  WHERE username='$row2[1]'ORDER BY id DESC";
 $result3 =$conn->query($query0);
 $row3 = mysqli_fetch_assoc($result3);
 $first=$row3['recharge'];

@@ -30,7 +30,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 }
 
                         require_once "config.php";
-                        $query1 = "SELECT * FROM dbo.dbo.record WHERE username='".$_SESSION['username']."' ";
+                        $query1 = "SELECT * FROM dbo.record WHERE username='".$_SESSION['username']."' ";
 
 
 $result1 = mysqli_query($conn, $query1);
@@ -42,7 +42,7 @@ if (isset($row2)) {
     $username = $row2[1]; // Assuming the username is stored at index 1 in $row2
 
     // Execute the query with the username
-    $query0 = "SELECT account, ifsc, upi FROM dbo.users WHERE username='$username'";
+    $query0 = "SELECT account, ifsc, upi FROM users WHERE username='$username'";
     
     // Execute the query and handle the results
     // (Note: You need to execute this query using your database connection)
@@ -139,7 +139,7 @@ if ($result3 instanceof mysqli_result) {
 
 
 //retrieve the selected results from database   
-$query = "SELECT * FROM dbo.dbo.record WHERE username='".$_SESSION['username']."' ORDER BY id DESC ";  
+$query = "SELECT * FROM dbo.record WHERE username='".$_SESSION['username']."' ORDER BY id DESC ";  
 $result = mysqli_query($conn, $query);  
   
 $colour = '';

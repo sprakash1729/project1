@@ -32,7 +32,7 @@ require_once "config.php";
 
 // mysql select query
 
-$query1 = "SELECT * FROM dbo.dbo.recharge WHERE username='".$_SESSION['username']."' ";
+$query1 = "SELECT * FROM dbo.recharge WHERE username='".$_SESSION['username']."' ";
 
 
 // result for method one
@@ -59,7 +59,7 @@ if (!isset ($_GET['page']) ) {
 $page_first_result = ($page-1) * $results_per_page;  
 
 //retrieve the selected results from database   
-$query = "SELECT * FROM dbo.dbo.recharge WHERE username='".$_SESSION['username']."' ORDER BY id DESC" ;  
+$query = "SELECT * FROM dbo.recharge WHERE username='".$_SESSION['username']."' ORDER BY id DESC" ;  
 $result = mysqli_query($conn, $query);  
 
 //display the retrieved result on the webpage  

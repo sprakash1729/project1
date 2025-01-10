@@ -31,7 +31,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
                        
 
                        
-$query =  "SELECT * FROM dbo.saprebetrec ORDER BY id DESC";
+$query =  "SELECT * FROM saprebetrec ORDER BY id DESC";
 
 
 // result for method two 
@@ -57,7 +57,7 @@ if (!isset ($_GET['spage']) ) {
 $page_first_result = ($spage-1) * $results_per_page;  
 
 //retrieve the selected results from database   
-$query = "SELECT *FROM dbo.saprebetrec ORDER BY id DESC OFFSET " . $page_first_result . ',' . $results_per_page;  
+$query = "SELECT *FROM saprebetrec ORDER BY id DESC OFFSET " . $page_first_result . ',' . $results_per_page;  
 $result = mysqli_query($conn, $query);  
   
 //display the retrieved result on the webpage  

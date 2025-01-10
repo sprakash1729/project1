@@ -29,7 +29,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 }
 
 require_once "config.php";
-$sql = "SELECT  nickname FROM dbo.users WHERE username='".$_SESSION['username']."'";
+$sql = "SELECT  nickname FROM users WHERE username='".$_SESSION['username']."'";
 $result = $conn->query($sql);
 $row = mysqli_fetch_array($result);
 
@@ -43,7 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST"){
 if(!empty($nickname))
 {
    
-$sql = "UPDATE dbo.users SET nickname= '$nickname' WHERE username='".$_SESSION['username']."'";
+$sql = "UPDATE users SET nickname= '$nickname' WHERE username='".$_SESSION['username']."'";
 
 
 $conn->query($sql);
@@ -59,7 +59,7 @@ if ($conn->query($sql) === TRUE) {
 else{
       header("location: main#"); 
 }
-$opt="SELECT SUM(amount) as total FROM dbo.dbo.bonus WHERE usercode='".$_SESSION['usercode']."'";
+$opt="SELECT SUM(amount) as total FROM dbo.bonus WHERE usercode='".$_SESSION['usercode']."'";
 $optres=$conn->query($opt);
 $sum= mysqli_fetch_assoc($optres);
 if($sum['total']==""){
@@ -69,7 +69,7 @@ if($sum['total']==""){
     $bonus=round($sum['total'],2);
 }
 }
-$sql = "SELECT  balance FROM dbo.users WHERE username='".$_SESSION['username']."'";
+$sql = "SELECT  balance FROM users WHERE username='".$_SESSION['username']."'";
 $result = $conn->query($sql);
 $row = mysqli_fetch_array($result);
 $balance=round($row['balance'],2);

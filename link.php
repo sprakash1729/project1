@@ -62,7 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST"){
 
 $user_code = random_strings(25);  
     }
-$query11 = "SELECT code FROM dbo.dbo.gift WHERE code='$user_code'";
+$query11 = "SELECT code FROM dbo.gift WHERE code='$user_code'";
 
 
 $result1 = mysqli_query($conn, $query11);
@@ -80,7 +80,7 @@ $result1 = mysqli_query($conn, $query11);
 if(empty($err))
 {
    
-$sql = "INSERT INTO dbo.gift (amount,share,code) VALUES('$username','$newpassword','$user_code')";
+$sql = "INSERT INTO gift (amount,share,code) VALUES('$username','$newpassword','$user_code')";
 
 
 if ($conn->query($sql) === TRUE) {
