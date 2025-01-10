@@ -15,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST"){
 if(empty($err))
 {
    
-$sql = "UPDATE dbo.dbo.sapreperiod SET nxt=$username WHERE id='1'";
+$sql = "UPDATE dbo..sapreperiod SET nxt=$username WHERE id='1'";
 
 $conn->query($sql);
 if ($conn->query($sql) === TRUE) {

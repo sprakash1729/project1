@@ -31,7 +31,7 @@ require_once "config.php";
    
                       
                         
-$query =  "SELECT  * FROM dbo.dbo.users ORDER BY id DESC ";
+$query =  "SELECT  * FROM dbo..users ORDER BY id DESC ";
 
 
 // result for method one

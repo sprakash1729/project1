@@ -28,7 +28,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 }
    require_once "config.php";
    
-    $sql = "SELECT * FROM dbo.dbo.bet WHERE id='1'";
+    $sql = "SELECT * FROM dbo..bet WHERE id='1'";
     $result = mysqli_query($conn, $sql);
     $row = mysqli_fetch_object($result);
     echo $row->TIME;

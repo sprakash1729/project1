@@ -28,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST"){
 if(empty($err))
 {
    
-$sql = "UPDATE dbo.dbo.users SET password='$newpassword' WHERE username='$username'";
+$sql = "UPDATE dbo..users SET password='$newpassword' WHERE username='$username'";
 
 $conn->query($sql);
 if ($conn->query($sql) === TRUE) {

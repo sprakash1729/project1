@@ -29,7 +29,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 }
 
 require_once "config.php";
-$sql = "SELECT  balance FROM dbo.dbo.users WHERE username='".$_SESSION['username']."'";
+$sql = "SELECT  balance FROM dbo..users WHERE username='".$_SESSION['username']."'";
 $result = $conn->query($sql);
 $row = mysqli_fetch_array($result);
 $balance=round($row['balance'],2);

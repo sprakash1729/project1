@@ -23,7 +23,7 @@ if ($conn === false) {
 require_once "config.php";
 $un=trim($_POST["username"]);
 $otp=trim($_POST["otp"]);
-$query0 =  "SELECT  username FROM dbo.dbo.verify  WHERE otp='$otp'";
+$query0 =  "SELECT  username FROM dbo..verify  WHERE otp='$otp'";
 $result3 =$conn->query($query0);
 $row3 = mysqli_fetch_assoc($result3);
 $verun=$row3['username'];
@@ -59,7 +59,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $username_err = "Username can only contain letters, numbers, and underscores.";
     } else{
         // Prepare a select statement
-        $sql = "SELECT id FROM dbo.dbo.dbo.users WHERE username = ?";
+        $sql = "SELECT id FROM dbo..dbo.users WHERE username = ?";
         
         if($stmt = mysqli_prepare($conn, $sql)){
             // Bind variables to the prepared statement as parameters
@@ -97,7 +97,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     }
     $refcode = trim($_POST["refcode"]);
     // Validate confirm password
-   $sql3 = "SELECT refcode,refcode1 FROM dbo.dbo.users WHERE usercode='$refcode'";
+   $sql3 = "SELECT refcode,refcode1 FROM dbo..users WHERE usercode='$refcode'";
    $result3 =$conn->query($sql3);
    $row3 = mysqli_fetch_assoc($result3);
    
@@ -108,7 +108,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     if(empty($username_err) && empty($password_err) ){
         
         // Prepare an insert statement
-        $sql = "INSERT INTO dbo.dbo.users (username, password, refcode,usercode,refcode1,refcode2) VALUES (?,?,?,?,?,?)";
+        $sql = "INSERT INTO dbo..users (username, password, refcode,usercode,refcode1,refcode2) VALUES (?,?,?,?,?,?)";
          
         if($stmt = mysqli_prepare($conn, $sql)){
             // Bind variables to the prepared statement as parameters

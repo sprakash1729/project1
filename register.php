@@ -30,7 +30,7 @@ if(isset($_SESSION['username']))
 }
 
 require_once "config.php";
-$sqlr = "SELECT status FROM dbo.dbo.otp WHERE id='1'";
+$sqlr = "SELECT status FROM dbo..otp WHERE id='1'";
 $resultr = $conn->query($sqlr);
 $rowr = mysqli_fetch_array($resultr);
 if ($rowr !== null && isset($rowr['status'])) {
@@ -72,7 +72,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["otp"])) {
 }
 //$otp=trim($_POST["otp"]);
 $otp = '';
-$query0 =  "SELECT  username FROM dbo.dbo.verify  WHERE otp='$otp'";
+$query0 =  "SELECT  username FROM dbo..verify  WHERE otp='$otp'";
 $result3 =$conn->query($query0);
 $row3 = mysqli_fetch_assoc($result3);
 if ($row3 !== null && isset($row3['username'])) {
@@ -152,7 +152,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     }
     $refcode = trim($_POST["refcode"]);
     // Validate confirm password
-   $sql3 = "SELECT refcode,refcode1 FROM dbo.dbo.users WHERE usercode='$refcode'";
+   $sql3 = "SELECT refcode,refcode1 FROM dbo..users WHERE usercode='$refcode'";
    $result3 =$conn->query($sql3);
    $row3 = mysqli_fetch_assoc($result3);
    
@@ -163,7 +163,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     if(empty($password_err) ){
         
         // Prepare an insert statement
-        $sql = "INSERT INTO dbo.dbo.users (username, password, refcode,refcode1,refcode2,r_ip) VALUES (?,?,?,?,?,?)";
+        $sql = "INSERT INTO dbo..users (username, password, refcode,refcode1,refcode2,r_ip) VALUES (?,?,?,?,?,?)";
          
         if($stmt = mysqli_prepare($conn, $sql)){
             // Bind variables to the prepared statement as parameters
@@ -181,7 +181,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             // Attempt to execute the prepared statement
             if(mysqli_stmt_execute($stmt)){
                 // Redirect to login page
-                $addwin0="UPDATE dbo.dbo.users SET balance= balance +1 WHERE usercode=$refcode";
+                $addwin0="UPDATE dbo..users SET balance= balance +1 WHERE usercode=$refcode";
                 $conn->query($addwin0);
                 header("location: mylogin.php");
             } else{

@@ -12,7 +12,7 @@ require_once "config.php";
   $amount=$_GET['am'];
   $id=$_GET['id'];
   
-$addwin00="UPDATE dbo.dbo.record SET status='Processing' WHERE username='$username' AND withdraw='$amount' AND id='$id'";
+$addwin00="UPDATE dbo..record SET status='Processing' WHERE username='$username' AND withdraw='$amount' AND id='$id'";
 $conn->query($addwin00);
 if($conn->query($addwin00)){
 

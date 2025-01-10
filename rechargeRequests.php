@@ -31,7 +31,7 @@ require_once "config.php";
    
                       
                         
-$query =  "SELECT  * FROM dbo.dbo.recharge WHERE status='FAST-PAY' OR status='EPAY-DEPOSIT' OR status='To Be Paid' OR status='EK-PAY' OR status='BANK-DEPOSIT' OR status='RIGHT-PAY' ORDER BY id DESC ";
+$query =  "SELECT  * FROM dbo..recharge WHERE status='FAST-PAY' OR status='EPAY-DEPOSIT' OR status='To Be Paid' OR status='EK-PAY' OR status='BANK-DEPOSIT' OR status='RIGHT-PAY' ORDER BY id DESC ";
 
 
 // result for method one

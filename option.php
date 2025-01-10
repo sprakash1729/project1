@@ -27,11 +27,11 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     exit;
 }
 require_once "config.php";
-$sql3 = "SELECT period FROM dbo.dbo.period WHERE id='1'";
+$sql3 = "SELECT period FROM dbo..period WHERE id='1'";
 $result3 =$conn->query($sql3);
 $row3 = mysqli_fetch_assoc($result3);
 
-$sql = "SELECT  balance FROM dbo.dbo.users WHERE username='".$_SESSION['username']."'";
+$sql = "SELECT  balance FROM dbo..users WHERE username='".$_SESSION['username']."'";
 $result = $conn->query($sql);
 $row = mysqli_fetch_array($result);
 if( $row['balance']>0){
@@ -46,7 +46,7 @@ if( $row['balance']>=$amount){
 
 
 $sql2 ="INSERT INTO dbo.betting (username,period,ans,amount) VALUES ('".$_SESSION['username']."', $period,'$ans',$amount)"; 
-$sql="UPDATE dbo.dbo.users SET  balance = '$newbalance' WHERE username='".$_SESSION['username']."'" ;
+$sql="UPDATE dbo..users SET  balance = '$newbalance' WHERE username='".$_SESSION['username']."'" ;
 $conn->query($sql);              
 if ($conn->query($sql2) === TRUE) {
     header("location: win");

@@ -27,14 +27,14 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 }
 
 require_once "config.php";
-$sql = "SELECT  bonus FROM dbo.dbo.users WHERE username='".$_SESSION['username']."'";
+$sql = "SELECT  bonus FROM dbo..users WHERE username='".$_SESSION['username']."'";
 $result = $conn->query($sql);
 $row = mysqli_fetch_array($result);
 $bonus=$row[bonus];
-$addb1="UPDATE dbo.dbo.users SET balance= balance +$bonus WHERE  username='".$_SESSION['username']."'";
+$addb1="UPDATE dbo..users SET balance= balance +$bonus WHERE  username='".$_SESSION['username']."'";
 
 If($conn->query($addb1)=="true"){
-     $addb2="UPDATE dbo.dbo.users SET bonus=0 WHERE username='".$_SESSION['username']."'";
+     $addb2="UPDATE dbo..users SET bonus=0 WHERE username='".$_SESSION['username']."'";
             $conn->query($addb2);
             header("location: promotion#");
             
