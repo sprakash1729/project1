@@ -48,7 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST"){
 
 if(empty($err))
 {
-    $res = mysqli_query($conn,"SELECT* FROM dbo.users WHERE username='$username'and password='$password'");
+    $res = mysqli_query($conn,"SELECT * FROM dbo.users WHERE username='$username'and password='$password'");
     $result=mysqli_fetch_array($res);
     if($result)
  {
