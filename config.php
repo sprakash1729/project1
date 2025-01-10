@@ -1,37 +1,24 @@
 
 <?php
-$serverName = getenv("AZURE_SQL_SERVERNAME");
-$database = getenv("AZURE_SQL_DATABASE");
-$username = getenv("AZURE_SQL_UID");
-$password = getenv("AZURE_SQL_PWD");
+$serverName = "tcp:gametrial.database.windows.net,1433"; // Replace with your server
+$connectionOptions = [
+    "Database" => "gametraildb", // Replace with your database name
+    "Uid" => "gametrial_root", // Replace with your username
+    "PWD" => "Pass@123", // Replace with your password
+    "Encrypt" => true,
+    "TrustServerCertificate" => false
+];
 
-// Corrected connectionOptions
-$connectionOptions = array(
-    "Database" => $database, 
-    "Uid" => $username,
-    "PWD" => $password
-);
+// Establish the connection
+$conn = sqlsrv_connect($serverName, $connectionOptions);
 
-try {
-    $conn = sqlsrv_connect($serverName, $connectionOptions);
-
-    if ($conn === false) {
-        die(print_r(sqlsrv_errors(), true));
-    }
-
-    // Sample query to check connection (optional for functional testing)
-    $sql = "SELECT count(*) from dbo.users AS test_value";
-    $stmt = sqlsrv_query($conn, $sql);
-
-    if ($stmt === false) {
-        die(print_r(sqlsrv_errors(), true));
-    }
-
-    sqlsrv_free_stmt($stmt); 
-
-} catch (Exception $e) {
-    die();
+// Check if the connection is successful
+if ($conn === false) {
+    echo "Connection failed.<br>";
+    die(print_r(sqlsrv_errors(), true));
 }
+
+echo "Connection successful!<br>";
 
 sqlsrv_close($conn); 
 ?>
