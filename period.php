@@ -28,7 +28,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     exit;
 }
 require_once "config.php";
-$sql3 = "SELECT period FROM dbo..period WHERE id='1'";
+$sql3 = "SELECT period FROM dbo.period WHERE id='1'";
 $result3 =$conn->query($sql3);
 $row3 = mysqli_fetch_assoc($result3);
 echo $row3['period'];

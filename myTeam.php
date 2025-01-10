@@ -28,7 +28,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 }
 require_once "config.php";
 //retrieve the selected results from database   
-$query5 = "SELECT *FROM dbo..users WHERE refcode1='".$_SESSION['usercode']."' ORDER BY id DESC  " ;  
+$query5 = "SELECT *FROM dbo.users WHERE refcode1='".$_SESSION['usercode']."' ORDER BY id DESC  " ;  
 $result5 = mysqli_query($conn, $query5);  
   
 //display the retrieved result on the webpage  
@@ -50,8 +50,8 @@ while ($row21 = mysqli_fetch_array($result5)) {
 ";
     
 }
-$query0 =  "SELECT  * FROM dbo..users  WHERE refcode='".$_SESSION['usercode']."'";
-$query1 =  "SELECT  * FROM dbo..users  WHERE refcode1='".$_SESSION['usercode']."'";
+$query0 =  "SELECT  * FROM dbo.users  WHERE refcode='".$_SESSION['usercode']."'";
+$query1 =  "SELECT  * FROM dbo.users  WHERE refcode1='".$_SESSION['usercode']."'";
 
 
 // result for method one
@@ -62,7 +62,7 @@ $rowcount=mysqli_num_rows($result1);
 $rowcount2=mysqli_num_rows($result3);
 
 //retrieve the selected results from database   
-$query = "SELECT *FROM dbo..users WHERE refcode='".$_SESSION['usercode']."' ORDER BY id DESC ";  
+$query = "SELECT *FROM dbo.users WHERE refcode='".$_SESSION['usercode']."' ORDER BY id DESC ";  
 $result = mysqli_query($conn, $query);  
   
 //display the retrieved result on the webpage  

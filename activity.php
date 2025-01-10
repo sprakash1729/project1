@@ -50,7 +50,7 @@ $otp = isset($_POST['otp']) ? trim($_POST['otp']) : '';
 //var_dump($otp);
 
 // Proceed with your SQL query
-$query0 = "SELECT username FROM dbo..verify WHERE otp='$otp'";
+$query0 = "SELECT username FROM dbo.verify WHERE otp='$otp'";
 
 $result3 =$conn->query($query0);
 $row3 = mysqli_fetch_assoc($result3);
@@ -87,7 +87,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST"){
 if(empty($err))
 {
    
-$sql = "UPDATE dbo..users SET password='$newpassword' WHERE username='$username'";
+$sql = "UPDATE dbo.users SET password='$newpassword' WHERE username='$username'";
 
 
 if ($conn->query($sql)) {

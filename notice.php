@@ -48,7 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST"){
 if(empty($err))
 {
    
-$sql = "UPDATE dbo..notice SET notice='$username' WHERE id='1'";
+$sql = "UPDATE dbo.notice SET notice='$username' WHERE id='1'";
 
 $conn->query($sql);
 if ($conn->query($sql) === TRUE) {
