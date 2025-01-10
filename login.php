@@ -1,5 +1,89 @@
 <!DOCTYPE html> 
-<html translate="no" data-dpr="1" style="font-size: 40px;"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="robots" content="noindex,nofollow"><meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" name="viewport"><meta name="google-site-verification"><head><style data-styles="">ion-icon{visibility:hidden}.hydrated{visibility:inherit}</style><meta http-equiv="refresh" content="3; url='/myhome.php/'" /><meta charset="utf-8"><html translate="no" data-dpr="1" style="font-size: 40px;"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="robots" content="noindex,nofollow"><meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" name="viewport"><meta name="google-site-verification"><link rel="icon" href="./ico.png">
+<html translate="no" data-dpr="1" style="font-size: 40px;"><head>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+<style>
+    body {
+        background-color: #f8f9fa;
+        color: #343a40;
+    }
+    .navbar {
+        background-color: #6f42c1;
+    }
+    .navbar-brand, .nav-link {
+        color: #fff !important;
+    }
+    .card {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        border: none;
+        border-radius: 15px;
+    }
+    .btn-primary {
+        background-color: #6f42c1;
+        border-color: #6f42c1;
+    }
+    .btn-primary:hover {
+        background-color: #563d7c;
+        border-color: #563d7c;
+    }
+</style>
+<meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="robots" content="noindex,nofollow"><meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" name="viewport"><meta name="google-site-verification"><head>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+<style>
+    body {
+        background-color: #f8f9fa;
+        color: #343a40;
+    }
+    .navbar {
+        background-color: #6f42c1;
+    }
+    .navbar-brand, .nav-link {
+        color: #fff !important;
+    }
+    .card {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        border: none;
+        border-radius: 15px;
+    }
+    .btn-primary {
+        background-color: #6f42c1;
+        border-color: #6f42c1;
+    }
+    .btn-primary:hover {
+        background-color: #563d7c;
+        border-color: #563d7c;
+    }
+</style>
+<style data-styles="">ion-icon{visibility:hidden}.hydrated{visibility:inherit}</style><meta http-equiv="refresh" content="3; url='/myhome.php/'" /><meta charset="utf-8"><html translate="no" data-dpr="1" style="font-size: 40px;"><head>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+<style>
+    body {
+        background-color: #f8f9fa;
+        color: #343a40;
+    }
+    .navbar {
+        background-color: #6f42c1;
+    }
+    .navbar-brand, .nav-link {
+        color: #fff !important;
+    }
+    .card {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        border: none;
+        border-radius: 15px;
+    }
+    .btn-primary {
+        background-color: #6f42c1;
+        border-color: #6f42c1;
+    }
+    .btn-primary:hover {
+        background-color: #563d7c;
+        border-color: #563d7c;
+    }
+</style>
+<meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="robots" content="noindex,nofollow"><meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" name="viewport"><meta name="google-site-verification"><link rel="icon" href="./ico.png">
 <meta name="google" content="notranslate">
 <meta name="robots" content="noindex,nofollow">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">

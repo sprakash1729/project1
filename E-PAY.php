@@ -1,3 +1,23 @@
+
+<?php
+$serverName = getenv("AZURE_SQL_SERVERNAME");
+$database = getenv("AZURE_SQL_DATABASE");
+$username = getenv("AZURE_SQL_UID");
+$password = getenv("AZURE_SQL_PWD");
+
+$connectionOptions = array(
+    "Database" => $database, 
+    "Uid" => $username,
+    "PWD" => $password
+);
+
+$conn = sqlsrv_connect($serverName, $connectionOptions);
+
+if ($conn === false) {
+    die(print_r(sqlsrv_errors(), true));
+}
+?>
+
 <?php
 session_start();
  
@@ -20,7 +40,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 $amount = $_POST['amount'];
 $utr = $_POST['utr']; 
 $upi = $_POST['upi']; 
-$query1 = "SELECT * FROM `dbo.recharge` WHERE utr='$utr' ";
+$query1 = "SELECT * FROM dbo.recharge WHERE utr='$utr' ";
 $result1 = mysqli_query($conn, $query1);
 $utrcount = mysqli_num_rows($result1); 
 function random_strings($length_of_string)
@@ -81,6 +101,34 @@ $conn->close();
 }
 ?>
 <html lang="en"><head>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+<style>
+    body {
+        background-color: #f8f9fa;
+        color: #343a40;
+    }
+    .navbar {
+        background-color: #6f42c1;
+    }
+    .navbar-brand, .nav-link {
+        color: #fff !important;
+    }
+    .card {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        border: none;
+        border-radius: 15px;
+    }
+    .btn-primary {
+        background-color: #6f42c1;
+        border-color: #6f42c1;
+    }
+    .btn-primary:hover {
+        background-color: #563d7c;
+        border-color: #563d7c;
+    }
+</style>
+
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>E-Pay</title>
 <link rel="icon" href="https://www.retaildata.co.uk/wp-content/uploads/2017/10/Epay_Logo_Final_color-glossy_v_color-glossy_v.png">
@@ -204,7 +252,7 @@ $conn->close();
             let a = document.getElementsByTagName('iframe')[0].contentWindow.document.querySelector("a");
             a.href = canvas.toDataURL("image/png");
             let event = new MouseEvent("click");
-            a.download = `${orderNo}.png`;
+            a.download = ${orderNo}.png;
             // 触发a的单击事件
             a.dispatchEvent(event);
         }catch(err){
@@ -235,8 +283,8 @@ $conn->close();
     function initContact() {
         let contact = document.getElementById('contact')
         let conBarbox = document.querySelector('.conBarbox')
-        let bodyC = `Payment name:%0a%0dAmount to pay:%0a%0dUTR:%0a%0dorder number:${orderNo}%0a%0dTelephone:`
-        let contactHerf = `mailto:${contactEmail}?cc=${contactEmail2}&subject=Need Help&body=${bodyC}`
+        let bodyC = Payment name:%0a%0dAmount to pay:%0a%0dUTR:%0a%0dorder number:${orderNo}%0a%0dTelephone:
+        let contactHerf = mailto:${contactEmail}?cc=${contactEmail2}&subject=Need Help&body=${bodyC}
         document.getElementById('mailHref').href = contactHerf;
         contact.onclick = function() {
             conBarbox.style.height = conBarbox.style.height == '0px' ? 'auto' : '0px'

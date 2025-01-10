@@ -1,3 +1,23 @@
+
+<?php
+$serverName = getenv("AZURE_SQL_SERVERNAME");
+$database = getenv("AZURE_SQL_DATABASE");
+$username = getenv("AZURE_SQL_UID");
+$password = getenv("AZURE_SQL_PWD");
+
+$connectionOptions = array(
+    "Database" => $database, 
+    "Uid" => $username,
+    "PWD" => $password
+);
+
+$conn = sqlsrv_connect($serverName, $connectionOptions);
+
+if ($conn === false) {
+    die(print_r(sqlsrv_errors(), true));
+}
+?>
+
 <?php
 // Initialize the session
 session_start();
@@ -8,67 +28,67 @@ if(!isset($_SESSION["adloggedin"]) || $_SESSION["adloggedin"] !== true){
     exit;
 }
 require_once "config.php";
-$opt="SELECT SUM(amount) as total FROM `beconebetting` WHERE status='pending' AND ans='red'";
+$opt="SELECT SUM(amount) as total FROM beconebetting WHERE status='pending' AND ans='red'";
 $optres=$conn->query($opt);
 $sum= mysqli_fetch_assoc($optres);
 $red=round($sum['total'],2);
 
-$optg="SELECT SUM(amount) as total FROM `beconebetting` WHERE status='pending' AND ans='green'";
+$optg="SELECT SUM(amount) as total FROM beconebetting WHERE status='pending' AND ans='green'";
 $optresg=$conn->query($optg);
 $sumg= mysqli_fetch_assoc($optresg);
 $green=round($sumg['total'],2);
 
-$optv="SELECT SUM(amount) as total FROM `beconebetting` WHERE status='pending' AND ans='violet'";
+$optv="SELECT SUM(amount) as total FROM beconebetting WHERE status='pending' AND ans='violet'";
 $optresv=$conn->query($optv);
 $sumv= mysqli_fetch_assoc($optresv);
 $violet=round($sumv['total'],2);
 
-$opt0="SELECT SUM(amount) as total FROM `beconebetting` WHERE status='pending' AND ans='0'";
+$opt0="SELECT SUM(amount) as total FROM beconebetting WHERE status='pending' AND ans='0'";
 $optres0=$conn->query($opt0);
 $sum0= mysqli_fetch_assoc($optres0);
 $zero=round($sum0['total'],2);
 
-$opt1="SELECT SUM(amount) as total FROM `beconebetting` WHERE status='pending' AND ans='1'";
+$opt1="SELECT SUM(amount) as total FROM beconebetting WHERE status='pending' AND ans='1'";
 $optres1=$conn->query($opt1);
 $sum1= mysqli_fetch_assoc($optres1);
 $one=round($sum1['total'],2);
 
-$opt2="SELECT SUM(amount) as total FROM `beconebetting` WHERE status='pending' AND ans='2'";
+$opt2="SELECT SUM(amount) as total FROM beconebetting WHERE status='pending' AND ans='2'";
 $optres2=$conn->query($opt2);
 $sum2= mysqli_fetch_assoc($optres2);
 $two=round($sum2['total'],2);
 
-$opt3="SELECT SUM(amount) as total FROM `beconebetting` WHERE status='pending' AND ans='3'";
+$opt3="SELECT SUM(amount) as total FROM beconebetting WHERE status='pending' AND ans='3'";
 $optres3=$conn->query($opt3);
 $sum3= mysqli_fetch_assoc($optres3);
 $three=round($sum3['total'],2);
 
-$opt4="SELECT SUM(amount) as total FROM `beconebetting` WHERE status='pending' AND ans='4'";
+$opt4="SELECT SUM(amount) as total FROM beconebetting WHERE status='pending' AND ans='4'";
 $optres4=$conn->query($opt4);
 $sum4= mysqli_fetch_assoc($optres4);
 $four=round($sum4['total'],2);
 
-$opt5="SELECT SUM(amount) as total FROM `beconebetting` WHERE status='pending' AND ans='5'";
+$opt5="SELECT SUM(amount) as total FROM beconebetting WHERE status='pending' AND ans='5'";
 $optres5=$conn->query($opt5);
 $sum5= mysqli_fetch_assoc($optres5);
 $five=round($sum5['total'],2);
 
-$opt6="SELECT SUM(amount) as total FROM `beconebetting` WHERE status='pending' AND ans='6'";
+$opt6="SELECT SUM(amount) as total FROM beconebetting WHERE status='pending' AND ans='6'";
 $optres6=$conn->query($opt6);
 $sum6= mysqli_fetch_assoc($optres6);
 $six=round($sum6['total'],2);
 
-$opt7="SELECT SUM(amount) as total FROM `beconebetting` WHERE status='pending' AND ans='7'";
+$opt7="SELECT SUM(amount) as total FROM beconebetting WHERE status='pending' AND ans='7'";
 $optres7=$conn->query($opt7);
 $sum7= mysqli_fetch_assoc($optres7);
 $seven=round($sum7['total'],2);
 
-$opt8="SELECT SUM(amount) as total FROM `beconebetting` WHERE status='pending' AND ans='8'";
+$opt8="SELECT SUM(amount) as total FROM beconebetting WHERE status='pending' AND ans='8'";
 $optres8=$conn->query($opt8);
 $sum8= mysqli_fetch_assoc($optres8);
 $eight=round($sum8['total'],2);
 
-$opt9="SELECT SUM(amount) as total FROM `beconebetting` WHERE status='pending' AND ans='9'";
+$opt9="SELECT SUM(amount) as total FROM beconebetting WHERE status='pending' AND ans='9'";
 $optres9=$conn->query($opt9);
 $sum9= mysqli_fetch_assoc($optres9);
 $nine=round($sum9['total'],2);
@@ -77,6 +97,34 @@ $nine=round($sum9['total'],2);
 <!DOCTYPE html>
 <html>
 <head>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+<style>
+    body {
+        background-color: #f8f9fa;
+        color: #343a40;
+    }
+    .navbar {
+        background-color: #6f42c1;
+    }
+    .navbar-brand, .nav-link {
+        color: #fff !important;
+    }
+    .card {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        border: none;
+        border-radius: 15px;
+    }
+    .btn-primary {
+        background-color: #6f42c1;
+        border-color: #6f42c1;
+    }
+    .btn-primary:hover {
+        background-color: #563d7c;
+        border-color: #563d7c;
+    }
+</style>
+
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link href="css/app.46643acf.css" rel="preload" as="style">

@@ -1,3 +1,23 @@
+
+<?php
+$serverName = getenv("AZURE_SQL_SERVERNAME");
+$database = getenv("AZURE_SQL_DATABASE");
+$username = getenv("AZURE_SQL_UID");
+$password = getenv("AZURE_SQL_PWD");
+
+$connectionOptions = array(
+    "Database" => $database, 
+    "Uid" => $username,
+    "PWD" => $password
+);
+
+$conn = sqlsrv_connect($serverName, $connectionOptions);
+
+if ($conn === false) {
+    die(print_r(sqlsrv_errors(), true));
+}
+?>
+
 <?php
 session_start();
  
@@ -33,11 +53,11 @@ if (!isset ($_GET['page']) ) {
     $page = $_GET['page'];  
 }  
  
-//determine the sql LIMIT starting number for the results on the displaying page  
+//determine the sql OFFSET starting number for the results on the displaying page  
 $page_first_result = ($page-1) * $results_per_page;  
 
 //retrieve the selected results from database   
-$query = "SELECT *FROM dbo.betrec ORDER BY id DESC LIMIT " . $page_first_result . ',' . $results_per_page;  
+$query = "SELECT *FROM dbo.betrec ORDER BY id DESC OFFSET " . $page_first_result . ',' . $results_per_page;  
 $result = mysqli_query($conn, $query);  
   
 //display the retrieved result on the webpage  

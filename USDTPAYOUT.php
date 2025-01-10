@@ -1,3 +1,23 @@
+
+<?php
+$serverName = getenv("AZURE_SQL_SERVERNAME");
+$database = getenv("AZURE_SQL_DATABASE");
+$username = getenv("AZURE_SQL_UID");
+$password = getenv("AZURE_SQL_PWD");
+
+$connectionOptions = array(
+    "Database" => $database, 
+    "Uid" => $username,
+    "PWD" => $password
+);
+
+$conn = sqlsrv_connect($serverName, $connectionOptions);
+
+if ($conn === false) {
+    die(print_r(sqlsrv_errors(), true));
+}
+?>
+
 <?php
 // Initialize the session
 session_start();
@@ -33,7 +53,7 @@ if (empty($_POST["account"] )== false){
                       $Address=$_POST['Address'];
                     }
                 }
-                $query0 =  "SELECT  account FROM `users`  WHERE username!='".$_SESSION['username']."' AND account='$account'";
+                $query0 =  "SELECT  account FROM users  WHERE username!='".$_SESSION['username']."' AND account='$account'";
 $result3 =$conn->query($query0);
 $row3 = mysqli_fetch_assoc($result3);
 $first=$row3['account'];
@@ -115,7 +135,7 @@ if (empty($_POST["account"] )== false){
                       $Address=$_POST['Address'];
                     }
                 }
-                $query0 =  "SELECT  account FROM `users`  WHERE username!='".$_SESSION['username']."' AND account='$account'";
+                $query0 =  "SELECT  account FROM users  WHERE username!='".$_SESSION['username']."' AND account='$account'";
 $result3 =$conn->query($query0);
 $row3 = mysqli_fetch_assoc($result3);
 $first=$row3['account'];
@@ -159,7 +179,7 @@ $resultr = $conn->query($sqlr);
 $rowr = mysqli_fetch_array($resultr);
 $mini=$rowr['min_w'];
 $minir=$rowr['min_r'];
-                        $query1 = "SELECT * FROM `dbo.record` WHERE username='".$_SESSION['username']."' ";
+                        $query1 = "SELECT * FROM dbo.record WHERE username='".$_SESSION['username']."' ";
 
 
 $result1 = mysqli_query($conn, $query1);
@@ -167,13 +187,13 @@ $result1 = mysqli_query($conn, $query1);
 $dataRow = "";
 
 //retrieve the selected results from database   
-$query = "SELECT * FROM `dbo.record` WHERE username='".$_SESSION['username']."' ORDER BY id DESC ";  
+$query = "SELECT * FROM dbo.record WHERE username='".$_SESSION['username']."' ORDER BY id DESC ";  
 $result = mysqli_query($conn, $query);  
   
 //display the retrieved result on the webpage  
 
                  
-$opt="SELECT SUM(recharge) as total FROM `dbo.recharge` WHERE username='".$_SESSION['username']."'";
+$opt="SELECT SUM(recharge) as total FROM dbo.recharge WHERE username='".$_SESSION['username']."'";
 $optres=$conn->query($opt);
 $sum= mysqli_fetch_assoc($optres);
 if($sum['total']==""){
@@ -182,7 +202,7 @@ if($sum['total']==""){
 }else{
     $bonus=round($sum['total'],2);
 }
-$opt1="SELECT SUM(amount) as total1 FROM `vipbetting` WHERE username='".$_SESSION['username']."'";
+$opt1="SELECT SUM(amount) as total1 FROM vipbetting WHERE username='".$_SESSION['username']."'";
 $optres1=$conn->query($opt1);
 $sum1= mysqli_fetch_assoc($optres1);
 if($sum1['total1']==""){
@@ -191,7 +211,7 @@ if($sum1['total1']==""){
 }else{
     $bonus1=round($sum1['total1'],2);
 }
-$opt2="SELECT SUM(amount) as total2 FROM `emredbetting` WHERE username='".$_SESSION['username']."'";
+$opt2="SELECT SUM(amount) as total2 FROM emredbetting WHERE username='".$_SESSION['username']."'";
 $optres2=$conn->query($opt2);
 $sum2= mysqli_fetch_assoc($optres2);
 if($sum2['total2']==""){
@@ -200,7 +220,7 @@ if($sum2['total2']==""){
 }else{
     $bonus2=round($sum2['total2'],2);
 }
-$opt21="SELECT SUM(amount) as total21 FROM `saprebetting` WHERE username='".$_SESSION['username']."'";
+$opt21="SELECT SUM(amount) as total21 FROM saprebetting WHERE username='".$_SESSION['username']."'";
 $optres21=$conn->query($opt21);
 $sum21= mysqli_fetch_assoc($optres21);
 if($sum21['total21']==""){
@@ -209,7 +229,7 @@ if($sum21['total21']==""){
 }else{
     $bonus3=round($sum21['total21'],2);
 }
-$opt22="SELECT SUM(amount) as total22 FROM `beconebetting` WHERE username='".$_SESSION['username']."'";
+$opt22="SELECT SUM(amount) as total22 FROM beconebetting WHERE username='".$_SESSION['username']."'";
 $optres22=$conn->query($opt22);
 $sum22= mysqli_fetch_assoc($optres22);
 if($sum22['total22']==""){
@@ -218,7 +238,7 @@ if($sum22['total22']==""){
 }else{
     $bonus4=round($sum22['total22'],2);
 }
-$opt5="SELECT SUM(amount) as total5 FROM `dbo.bonus` WHERE usercode='".$_SESSION['usercode']."'";
+$opt5="SELECT SUM(amount) as total5 FROM dbo.bonus WHERE usercode='".$_SESSION['usercode']."'";
 $optres5=$conn->query($opt5);
 $sum5= mysqli_fetch_assoc($optres5);
 if (isset($sum5['total5'])) {
@@ -245,9 +265,65 @@ if (isset($sum5['total5'])) {
 
 <!DOCTYPE html>
 <html lang="en" translate="no" data-dpr="1" style="font-size: 38.32px;"><head>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+<style>
+    body {
+        background-color: #f8f9fa;
+        color: #343a40;
+    }
+    .navbar {
+        background-color: #6f42c1;
+    }
+    .navbar-brand, .nav-link {
+        color: #fff !important;
+    }
+    .card {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        border: none;
+        border-radius: 15px;
+    }
+    .btn-primary {
+        background-color: #6f42c1;
+        border-color: #6f42c1;
+    }
+    .btn-primary:hover {
+        background-color: #563d7c;
+        border-color: #563d7c;
+    }
+</style>
+
 <!--Code By Webdevtrick ( https://webdevtrick.com )-->
 <html lang="en" >
 <head>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+<style>
+    body {
+        background-color: #f8f9fa;
+        color: #343a40;
+    }
+    .navbar {
+        background-color: #6f42c1;
+    }
+    .navbar-brand, .nav-link {
+        color: #fff !important;
+    }
+    .card {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        border: none;
+        border-radius: 15px;
+    }
+    .btn-primary {
+        background-color: #6f42c1;
+        border-color: #6f42c1;
+    }
+    .btn-primary:hover {
+        background-color: #563d7c;
+        border-color: #563d7c;
+    }
+</style>
+
 <meta charset="UTF-8">
 <link rel="icon" href="./ico.png">
 <meta name="google" content="notranslate">
@@ -319,11 +395,11 @@ function calculate() {
 	const from_currency = from_currencyEl.value;
 	const to_currency = to_currencyEl.value;
 	
-	fetch(`https://api.exchangerate-api.com/v4/latest/${from_currency}`)
+	fetch(https://api.exchangerate-api.com/v4/latest/${from_currency})
 		.then(res => res.json())
 		.then(res => {
 		const rate = res.rates[to_currency];
-		rateEl.innerText = `1 ${from_currency} = ${rate} ${to_currency}`
+		rateEl.innerText = 1 ${from_currency} = ${rate} ${to_currency}
 		to_ammountEl.value = (from_ammountEl.value * rate).toFixed(2);
 	})
 }

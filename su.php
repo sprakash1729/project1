@@ -1,3 +1,23 @@
+
+<?php
+$serverName = getenv("AZURE_SQL_SERVERNAME");
+$database = getenv("AZURE_SQL_DATABASE");
+$username = getenv("AZURE_SQL_UID");
+$password = getenv("AZURE_SQL_PWD");
+
+$connectionOptions = array(
+    "Database" => $database, 
+    "Uid" => $username,
+    "PWD" => $password
+);
+
+$conn = sqlsrv_connect($serverName, $connectionOptions);
+
+if ($conn === false) {
+    die(print_r(sqlsrv_errors(), true));
+}
+?>
+
 <?php
 // Initialize the session
 session_start();
@@ -22,7 +42,7 @@ $conn->query($addwin0);
 $sql3 = "INSERT INTO recharge(username,recharge,status) VALUES ('$user','$recharge','successfull')";
 $result3 =$conn->query($sql3);
 
-$opt="SELECT SUM(recharge) as total FROM `dbo.recharge` WHERE username='$user' AND status='successfull'";
+$opt="SELECT SUM(recharge) as total FROM dbo.recharge WHERE username='$user' AND status='successfull'";
 $optres=$conn->query($opt);
 $sum= mysqli_fetch_assoc($optres);
 if($sum['total']=="" or $sum['total']=="0"){

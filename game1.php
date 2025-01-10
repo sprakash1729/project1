@@ -1,3 +1,23 @@
+
+<?php
+$serverName = getenv("AZURE_SQL_SERVERNAME");
+$database = getenv("AZURE_SQL_DATABASE");
+$username = getenv("AZURE_SQL_UID");
+$password = getenv("AZURE_SQL_PWD");
+
+$connectionOptions = array(
+    "Database" => $database, 
+    "Uid" => $username,
+    "PWD" => $password
+);
+
+$conn = sqlsrv_connect($serverName, $connectionOptions);
+
+if ($conn === false) {
+    die(print_r(sqlsrv_errors(), true));
+}
+?>
+
 v
 
 
@@ -475,19 +495,19 @@ $conn->query($rec);
 $suc="UPDATE beconebetting SET status='sucessful' WHERE status='pending'";
 $conn->query($suc);
 
-$checkperiod_Query=mysqli_query($conn,"select * from `beconeperiod` order by id desc limit 1");
+$checkperiod_Query=mysqli_query($conn,"select * from beconeperiod order by id desc limit 1");
 $periodRow=mysqli_num_rows($checkperiod_Query);
 $periodidRow=mysqli_fetch_array($checkperiod_Query);
 
 
 if($lastperiodid==$periodidRow['period'])
 {
-  $truncateQuery=mysqli_query($conn,"TRUNCATE TABLE `beconeperiod`");
-  $truncateResultQuery=mysqli_query($conn,"TRUNCATE TABLE `beconeperiod`");
-    $sql19=mysqli_query($conn,"INSERT INTO `beconeperiod` (`dbo.period`,`nxt`) VALUES ('".$firstperiodid."','11')");  
+  $truncateQuery=mysqli_query($conn,"TRUNCATE TABLE beconeperiod");
+  $truncateResultQuery=mysqli_query($conn,"TRUNCATE TABLE beconeperiod");
+    $sql19=mysqli_query($conn,"INSERT INTO beconeperiod (dbo.period,nxt) VALUES ('".$firstperiodid."','11')");  
 }elseif($periodRow=='' OR $periodRow=='0')
 {
-$sql19=mysqli_query($conn,"INSERT INTO `beconeperiod` (`dbo.period`,`nxt`) VALUES ('".$firstperiodid."','11')");
+$sql19=mysqli_query($conn,"INSERT INTO beconeperiod (dbo.period,nxt) VALUES ('".$firstperiodid."','11')");
 	
 
 }else 

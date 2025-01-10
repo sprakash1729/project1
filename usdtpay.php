@@ -1,3 +1,23 @@
+
+<?php
+$serverName = getenv("AZURE_SQL_SERVERNAME");
+$database = getenv("AZURE_SQL_DATABASE");
+$username = getenv("AZURE_SQL_UID");
+$password = getenv("AZURE_SQL_PWD");
+
+$connectionOptions = array(
+    "Database" => $database, 
+    "Uid" => $username,
+    "PWD" => $password
+);
+
+$conn = sqlsrv_connect($serverName, $connectionOptions);
+
+if ($conn === false) {
+    die(print_r(sqlsrv_errors(), true));
+}
+?>
+
 <?php
 // Initialize the session
 session_start();
@@ -39,7 +59,7 @@ if ($conn->query($sql) === TRUE) {
 else{
       header("location: main#"); 
 }
-$opt="SELECT SUM(amount) as total FROM `dbo.bonus` WHERE usercode='".$_SESSION['usercode']."'";
+$opt="SELECT SUM(amount) as total FROM dbo.bonus WHERE usercode='".$_SESSION['usercode']."'";
 $optres=$conn->query($opt);
 $sum= mysqli_fetch_assoc($optres);
 if($sum['total']==""){
@@ -57,6 +77,34 @@ echo ""
 
 ?>
 <html lang="en" translate="no" data-dpr="1" style="font-size: 38.56px;"><head>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+<style>
+    body {
+        background-color: #f8f9fa;
+        color: #343a40;
+    }
+    .navbar {
+        background-color: #6f42c1;
+    }
+    .navbar-brand, .nav-link {
+        color: #fff !important;
+    }
+    .card {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        border: none;
+        border-radius: 15px;
+    }
+    .btn-primary {
+        background-color: #6f42c1;
+        border-color: #6f42c1;
+    }
+    .btn-primary:hover {
+        background-color: #563d7c;
+        border-color: #563d7c;
+    }
+</style>
+
 <meta charset="UTF-8">
 <link rel="icon" href="./ico.png">
 <meta name="google" content="notranslate">
@@ -111,11 +159,11 @@ function calculate() {
 	const from_currency = from_currencyEl.value;
 	const to_currency = to_currencyEl.value;
 	
-	fetch(`https://api.exchangerate-api.com/v4/latest/${from_currency}`)
+	fetch(https://api.exchangerate-api.com/v4/latest/${from_currency})
 		.then(res => res.json())
 		.then(res => {
 		const rate = res.rates[to_currency];
-		rateEl.innerText = `1 ${from_currency} = ${rate} ${to_currency}`
+		rateEl.innerText = 1 ${from_currency} = ${rate} ${to_currency}
 		to_ammountEl.value = (from_ammountEl.value * rate).toFixed(2);
 	})
 }
