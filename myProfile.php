@@ -153,7 +153,7 @@ if (empty($_POST["account"] )== false){
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
 <link rel="manifest">
-<title>91 Club</title>
+<title>786 Number Club</title>
 <link rel="stylesheet" href="https://91dreamclub.com/assets/css/modules-96f5a6e8.css">
 <link rel="stylesheet" href="https://91dreamclub.com/assets/css/page-activity-871556fb.css">
 <link rel="stylesheet" href="https://91dreamclub.com/assets/css/page-home-0d70abbb.css">

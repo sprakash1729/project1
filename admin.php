@@ -146,7 +146,7 @@ if($sum10t['total10']==""){
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
-<title>Admin | 91 Club</title>
+<title>Admin | 786 Number Club</title>
 <link rel="icon" href="./ico.png">
 <link rel="stylesheet" href="admincss/page-main-8cf260fb.css">
 
