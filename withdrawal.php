@@ -300,7 +300,7 @@ if (isset($sum5['total5'])) {
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
 <link rel="manifest">
-<title>786 Number Club</title><link rel="stylesheet" href="/css/bootstrap.min.css">
+<title>786 Club</title><link rel="stylesheet" href="/css/bootstrap.min.css">
   <link rel="stylesheet" href="/css/light.css">
   <link rel="stylesheet" href="/css/dropzone.css">
 <link rel="stylesheet" href="https://91dreamclub.com/assets/css/modules-96f5a6e8.css">

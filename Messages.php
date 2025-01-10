@@ -127,7 +127,7 @@ else{
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
 <link rel="manifest">
-<title>786 Number Club</title>
+<title>786 Club</title>
 <link rel="stylesheet" href="https://91dreamclub.com/assets/css/modules-96f5a6e8.css">
 <link rel="stylesheet" href="https://91dreamclub.com/assets/css/page-activity-9727ee57.css">
 <link rel="stylesheet" href="https://91dreamclub.com/assets/css/page-home-684a3a25.css">

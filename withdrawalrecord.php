@@ -229,7 +229,7 @@ while ($row2 = mysqli_fetch_array($result)) {
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
 <link rel="manifest">
-<title>786 Number Club</title>
+<title>786 Club</title>
 <link rel="stylesheet" href="https://primeclub.app/includes/bootstrap/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://primeclub.app/includes/assets/css/light.css?23.7.12">
 <link rel="stylesheet" href="https://primeclub.app/includes/dropzone/css/dropzone.css?23.7.12">
